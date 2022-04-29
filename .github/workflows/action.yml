@@ -7,17 +7,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-- name: Install Playdate SDK
-  id: playdate
-  uses: pd-rs/get-playdate-sdk@0.1.2
-
-- name: usage
-  run: |
-    echo "SDK root: $PLAYDATE_SDK_PATH"
-    echo "SDK root: ${{ steps.playdate.outputs.root }}"
-    echo "SDK version: ${{ steps.playdate.outputs.version }}"
-    pdc --version
-
 jobs:
   build:
     runs-on: ubuntu-latest
