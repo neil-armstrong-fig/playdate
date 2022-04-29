@@ -19,6 +19,7 @@ jobs:
         run: ./build.sh
 
   release:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Create tag
