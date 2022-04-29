@@ -11,12 +11,44 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
       - uses: pd-rs/get-playdate-sdk@0.1.2
 
-      # Runs a single command using the runners shell
       - name: Run a one-line script
         run: ./build.sh
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create tag
+        id: create_tag
+        run: |
+          tag=$(basename "${{github.run_id}}")
+          echo "::set-output name=tag::$tag"
+
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: ${{steps.create_tag.outputs.tag}}
+          release_name: ${{steps.create_tag.outputs.tag}}
+          draft: true
+          prerelease: false
+
+      - uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          upload_url: ${{steps.create_release.outputs.upload_url}}
+          asset_path: ./build/game.pdx
+          asset_name: game.zip
+          asset_content_type: application/zip
+
+      - uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          release_id: ${{steps.create_release.outputs.id}}
