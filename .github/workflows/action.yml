@@ -19,7 +19,12 @@ jobs:
       - name: Build
         run: ./build.sh
 
-      - name: Create tag
+      - name: Zip build
+        uses: montudor/action-zip@v1.0.0
+        with:
+          args: zip -qq -r build/game.pdx dir
+
+      - name: Create build tag
         id: create_tag
         run: |
           tag=$(basename "${{github.run_id}}")
@@ -36,7 +41,8 @@ jobs:
           draft: true
           prerelease: false
 
-      - uses: actions/upload-release-asset@v1.0.1
+      - name: Build release asset url
+        uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
@@ -45,7 +51,8 @@ jobs:
           asset_name: game.zip
           asset_content_type: application/zip
 
-      - uses: eregon/publish-release@v1
+      - name: Release asset
+        uses: eregon/publish-release@v1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
