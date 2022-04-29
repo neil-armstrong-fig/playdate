@@ -1,11 +1,11 @@
-name: Playdate-CD
+name: Playdate-ContinuousDeliveryPipeline
 
 on:
   push:
     branches: [main]
 
 jobs:
-  CD:
+  ContinuousDeliveryPipeline:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
