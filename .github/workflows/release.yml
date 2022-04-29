@@ -1,12 +1,10 @@
 name: Playdate-CD
 
-on: [push]
-#on:
-#  push:
-#    branches: [ main ]
-#  pull_request:
-#    branches: [ main ]
-#  workflow_dispatch:
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   CD:
