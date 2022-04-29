@@ -9,7 +9,7 @@ on: [push]
 #  workflow_dispatch:
 
 jobs:
-  build:
+  CD:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
