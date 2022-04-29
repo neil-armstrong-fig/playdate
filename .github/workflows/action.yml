@@ -22,7 +22,7 @@ jobs:
       - name: Zip build
         uses: montudor/action-zip@v1.0.0
         with:
-          args: zip -qq -r build/game.pdx dir
+          args: zip -qq -r game.zip build/game.pdx
 
       - name: Create build tag
         id: create_tag
@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: ./build/game.pdx
+          asset_path: game.zip
           asset_name: game.zip
           asset_content_type: application/zip
 
