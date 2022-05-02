@@ -7,6 +7,8 @@ local function unitTestsEnabled()
     return playdate.isSimulator == 1
 end
 
+local anyTestsFailed = false
+
 UnitTest = {}
 
 -- Will only test a table called `TestMyStuff`
@@ -17,15 +19,17 @@ function UnitTest.runTests(cleanup)
     end
 
     playdate.stop()
+
     luaunit.PRINT_TABLE_REF_IN_ERROR_MSG = true
-
-    local testOutputFilename = "test_output"
-    local outputType = "text"
     local luaunit_args = { '--output', 'text', '--verbose', '-r' }
-    local returnValue = luaunit.LuaUnit.run(table.unpack(luaunit_args))
-    print("unit test return value = " .. returnValue)
-
+    local testRunResult = luaunit.LuaUnit.run(table.unpack(luaunit_args))
     cleanup()
 
-    playdate.start()
+    if (testRunResult ~= 0) then
+        anyTestsFailed = true
+    end
+
+    if (anyTestsFailed == false) then
+        playdate.start()
+    end
 end
