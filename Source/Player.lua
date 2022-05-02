@@ -18,6 +18,7 @@ class("Player").extends()
 function Player:init(config)
     self.sprite = createPlayerImage()
     self.speed = 5
+    self.playdate = playdate
 
     if (config == null) then
         return
@@ -26,23 +27,26 @@ function Player:init(config)
     if (config.speed) then
         self.speed = config.speed
     end
+
+    if (config.playdateMock) then
+        self.playdate = config.playdateMock
+    end
 end
 
 function Player:logicLoop()
-    -- Poll the d-pad and move our player accordingly.
-    -- (There are multiple ways to read the d-pad; this is the simplest.)
-    -- Note that it is possible for more than one of these directions
-    -- to be pressed at once, if the user is pressing diagonally.
-    if playdate.buttonIsPressed(playdate.kButtonUp) then
+    if self.playdate.buttonIsPressed(playdate.kButtonUp) then
         self.sprite:moveBy(0, -self.speed)
     end
-    if playdate.buttonIsPressed(playdate.kButtonRight) then
-        self.sprite:moveBy(self.speed, 0)
-    end
-    if playdate.buttonIsPressed(playdate.kButtonDown) then
+    if self.playdate.buttonIsPressed(playdate.kButtonDown) then
         self.sprite:moveBy(0, self.speed)
     end
-    if playdate.buttonIsPressed(playdate.kButtonLeft) then
+
+    if self.playdate.buttonIsPressed(playdate.kButtonRight) then
+        self.sprite:moveBy(self.speed, 0)
+    end
+    if self.playdate.buttonIsPressed(playdate.kButtonLeft) then
         self.sprite:moveBy(-self.speed, 0)
     end
 end
+
+import "Player-Test"

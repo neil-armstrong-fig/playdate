@@ -13,7 +13,7 @@ jobs:
       - uses: pd-rs/get-playdate-sdk@0.1.2
 
       - name: Build
-        run: ./build.sh
+        run: ./scripts/build.sh
 
       - name: Zip build
         uses: montudor/action-zip@v1.0.0

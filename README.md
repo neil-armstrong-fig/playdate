@@ -8,10 +8,10 @@ export PATH="$PATH:/Users/<your-username>/PlaydateSDK/bin"
 
 export PLAYDATE_SDK_PATH=/Users/<your-username>/PlaydateSDK
 ```
-3. Run `$ run.sh` to execute latest build on the simulator
+3. Run `$ ./scripts/run.sh` to execute the latest build on the simulator
 4. An error will show that it cannot find the sdk. 
-   1. This requires you to update the config file found in ~/.Playdate/config with the path to the sdk
-   2. Run `$ run.sh` again
+   1. This requires you to update the config file found in `~/.Playdate/config` with the path to the sdk
+   2. Run `$ ./scripts/run.sh` again
 
 ### Windows
 1. Download SDK https://play.date/dev/
@@ -29,4 +29,30 @@ export PLAYDATE_SDK_PATH=/Users/<your-username>/PlaydateSDK
    5. Add `PLAYDATE_SDK_PATH` as the name with the value being the path to your installed sdk (mine was `C:\Users\<username>\Documents\PlaydateSDK`)
    6. Then update `PATH`'s value to contain `C:\Users\<username>\Documents\PlaydateSDK\bin` (the `bin` folder contains command line utils)
 7. Enable powershell scripting: https://superuser.com/a/106363
-8. Run `\.run.ps1` via powershell
+8. Run `scripts\run.ps1` via powershell
+
+## Lint
+
+Doesn't play nice with the playdate's custom lua stuff, so just going to leave it out for now
+
+## Tests
+Tests run at runtime on the simulator, so can mock via injection
+
+1. Create test file `<FileToTest>-Test.lua` with `FileToTest` being the name of the file you want to test
+2. Import this file at the bottom of the file you want to test `import "<FileToTest>-Test`
+3. Create test file in this format
+```
+import "UnitTest" -- Sets up luaunit etc
+
+TestMyStuff = {} -- Must be `TestMyStuff`
+
+function TestMyStuff:failingTest() -- Attach each test to `TestMyStuff`
+   -- Failing this test on purpose
+   luaunit.assertEquals(1, 2) -- `assertEquals` is not global, so run it off `luaunit`
+end
+
+UnitTest.submitTestClass() -- Execute test table
+```
+
+### Mocks
+Prefix all mock files with `Mock-` so that they are easily identified (and ignored with lots of files)
