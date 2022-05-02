@@ -40,19 +40,8 @@ Tests run at runtime on the simulator, so can mock via injection
 
 1. Create test file `<FileToTest>-Test.lua` with `FileToTest` being the name of the file you want to test
 2. Import this file at the bottom of the file you want to test `import "<FileToTest>-Test`
-3. Create test file in this format
-```
-import "UnitTest" -- Sets up luaunit etc
-
-TestMyStuff = {} -- Must be `TestMyStuff`
-
-function TestMyStuff:failingTest() -- Attach each test to `TestMyStuff`
-   -- Failing this test on purpose
-   luaunit.assertEquals(1, 2) -- `assertEquals` is not global, so run it off `luaunit`
-end
-
-UnitTest.submitTestClass() -- Execute test table
-```
+3. Create test file following existing format
+   1. Make sure all resources are cleaned up!!!
 
 ### Mocks
 Prefix all mock files with `Mock-` so that they are easily identified (and ignored with lots of files)

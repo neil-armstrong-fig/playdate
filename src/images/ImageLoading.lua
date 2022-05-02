@@ -1,10 +1,10 @@
 local graphics <const> = playdate.graphics
 
 local function loadImageFile(fileName)
-    local filePath = string.format("Images/%s", fileName);
+    local filePath = string.format("images/%s", fileName);
 
     local image = graphics.image.new(filePath)
-    assert(image, string.format("No image found at %s", filePath)) -- make sure the image was where we thought
+    assert(image, string.format("No image found at path '%s'", filePath))
 
     return image
 end

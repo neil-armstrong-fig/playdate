@@ -3,8 +3,10 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
-import "Player"
-import "Background"
+import "utils/TableMerge"
+
+import "actors/Player"
+import "actors/Background"
 import "RenderLoop"
 
 local player = Player({speed = 20})

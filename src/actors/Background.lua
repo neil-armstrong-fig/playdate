@@ -1,4 +1,4 @@
-import "ImageLoading"
+import "./images/ImageLoading"
 
 local graphics <const> = playdate.graphics
 

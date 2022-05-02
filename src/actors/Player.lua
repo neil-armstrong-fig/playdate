@@ -1,4 +1,4 @@
-import "ImageLoading"
+import "./images/ImageLoading"
 
 local graphics <const> = playdate.graphics
 
@@ -23,11 +23,9 @@ function Player:init(config)
     if (config == null) then
         return
     end
-
     if (config.speed) then
         self.speed = config.speed
     end
-
     if (config.playdateMock) then
         self.playdate = config.playdateMock
     end
@@ -47,6 +45,10 @@ function Player:logicLoop()
     if self.playdate.buttonIsPressed(playdate.kButtonLeft) then
         self.sprite:moveBy(-self.speed, 0)
     end
+end
+
+function Player:cleanup()
+    self.sprite:remove()
 end
 
 import "Player-Test"

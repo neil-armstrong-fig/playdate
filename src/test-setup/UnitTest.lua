@@ -1,16 +1,17 @@
-import "luaunit/playdate_luaunit_fix"
-import "luaunit/luaunit"
-import "Mock-Playdate"
+import "PlaydateLuaUnitFix"
+import "luaunit"
+
+import "mocks/Playdate-Mock"
 
 local function unitTestsEnabled()
-    return playdate.isSimulator
+    return playdate.isSimulator == 1
 end
 
 UnitTest = {}
 
 -- Will only test a table called `TestMyStuff`
 -- Also make sure test file is imported at the bottom of the file under test
-function UnitTest.runTests()
+function UnitTest.runTests(cleanup)
     if (unitTestsEnabled() == false) then
         return
     end
@@ -23,4 +24,8 @@ function UnitTest.runTests()
     local luaunit_args = { '--output', 'text', '--verbose', '-r' }
     local returnValue = luaunit.LuaUnit.run(table.unpack(luaunit_args))
     print("unit test return value = " .. returnValue)
+
+    cleanup()
+
+    playdate.start()
 end

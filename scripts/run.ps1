@@ -3,7 +3,7 @@ New-Item -ItemType Directory -Force build
 
 # Build release
 $directory = (pwd).path
-$inputPath = "${directory}\Source"
+$inputPath = "${directory}\src"
 $outputPath = "build\game.pdx"
 echo "Building ${inputPath} into ${outputPath}"
 pdc "${inputPath}" "${outputPath}"

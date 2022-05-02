@@ -1,2 +1,2 @@
 mkdir -p build
-pdc Source build/game.pdx
+pdc src build/game.pdx
