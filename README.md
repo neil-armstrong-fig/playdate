@@ -32,7 +32,6 @@ export PLAYDATE_SDK_PATH=/Users/<your-username>/PlaydateSDK
 8. Run `scripts\run.ps1` via powershell
 
 ## Lint
-
 Doesn't play nice with the playdate's custom lua stuff, so just going to leave it out for now
 
 ## Tests
@@ -44,4 +43,5 @@ Tests run at runtime on the simulator, so can mock via injection
    1. Make sure all resources are cleaned up!!!
 
 ### Mocks
-Prefix all mock files with `Mock-` so that they are easily identified (and ignored with lots of files)
+- Chuck them in the `test-setup/mocks` folder and ensure `UnitTest.lua` imports them so that they are available to all tests
+- For naming, postfix with `Mock` to avoid collisions with the real type
