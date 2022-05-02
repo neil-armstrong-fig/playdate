@@ -24,10 +24,10 @@ local function createTarget(config)
     }))
 end
 
-TestMyStuff = {}
+TestPlayerClass = {}
 
 -- Init
-function TestMyStuff:testInit()
+function TestPlayerClass:testInit()
     createTarget()
 
     luaunit.assertEquals(target.speed, expectedStartingSpeed)
@@ -38,7 +38,7 @@ function TestMyStuff:testInit()
 end
 
 -- Up
-function TestMyStuff:testUpButtonPressed()
+function TestPlayerClass:testUpButtonPressed()
     createTarget()
 
     playdateMock.simulateButtonPress(playdate.kButtonUp)
@@ -48,7 +48,7 @@ function TestMyStuff:testUpButtonPressed()
     luaunit.assertEquals(target.sprite.y, expectedStartingY - expectedStartingSpeed)
 end
 
-function TestMyStuff:testUpButtonPressedAtAcceleratedSpeed()
+function TestPlayerClass:testUpButtonPressedAtAcceleratedSpeed()
     createTarget({ speed = acceleratedSpeed })
 
     playdateMock.simulateButtonPress(playdate.kButtonUp)
@@ -59,7 +59,7 @@ function TestMyStuff:testUpButtonPressedAtAcceleratedSpeed()
 end
 
 -- Down
-function TestMyStuff:testDownButtonPressed()
+function TestPlayerClass:testDownButtonPressed()
     createTarget()
 
     playdateMock.simulateButtonPress(playdate.kButtonDown)
@@ -69,7 +69,7 @@ function TestMyStuff:testDownButtonPressed()
     luaunit.assertEquals(target.sprite.y, expectedStartingY + expectedStartingSpeed)
 end
 
-function TestMyStuff:testDownButtonPressedAtAcceleratedSpeed()
+function TestPlayerClass:testDownButtonPressedAtAcceleratedSpeed()
     createTarget({ speed = acceleratedSpeed })
 
     playdateMock.simulateButtonPress(playdate.kButtonDown)
@@ -80,7 +80,7 @@ function TestMyStuff:testDownButtonPressedAtAcceleratedSpeed()
 end
 
 -- Right
-function TestMyStuff:testRightButtonPressed()
+function TestPlayerClass:testRightButtonPressed()
     createTarget()
 
     playdateMock.simulateButtonPress(playdate.kButtonRight)
@@ -90,7 +90,7 @@ function TestMyStuff:testRightButtonPressed()
     luaunit.assertEquals(target.sprite.y, expectedStartingY)
 end
 
-function TestMyStuff:testRightButtonPressedAtAcceleratedSpeed()
+function TestPlayerClass:testRightButtonPressedAtAcceleratedSpeed()
     createTarget({ speed = acceleratedSpeed })
 
     playdateMock.simulateButtonPress(playdate.kButtonRight)
@@ -101,7 +101,7 @@ function TestMyStuff:testRightButtonPressedAtAcceleratedSpeed()
 end
 
 -- Left
-function TestMyStuff:testLeftButtonPressed()
+function TestPlayerClass:testLeftButtonPressed()
     createTarget()
 
     playdateMock.simulateButtonPress(playdate.kButtonLeft)
@@ -111,7 +111,7 @@ function TestMyStuff:testLeftButtonPressed()
     luaunit.assertEquals(target.sprite.y, expectedStartingY)
 end
 
-function TestMyStuff:testLeftButtonPressedAtAcceleratedSpeed()
+function TestPlayerClass:testLeftButtonPressedAtAcceleratedSpeed()
     createTarget({ speed = acceleratedSpeed })
 
     playdateMock.simulateButtonPress(playdate.kButtonLeft)
