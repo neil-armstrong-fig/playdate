@@ -28,9 +28,6 @@ function UnitTest.runTests(cleanup)
 
     if (testRunResult ~= 0) then
         anyTestsFailed = true
-    end
-
-    if (anyTestsFailed) then
         playdate.simulator.writeToFile(table.toString(testRunner.result.failures), "~/Downloads/testFailure.txt")
     end
 
