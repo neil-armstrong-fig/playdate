@@ -11,8 +11,8 @@ local anyTestsFailed = false
 
 UnitTest = {}
 
--- Will only test a table called `TestMyStuff`
--- Also make sure test file is imported at the bottom of the file under test
+-- Will only test a table that beings with `Test`
+-- Also make sure test file is imported at the bottom of the file under test so everything works in the test file
 function UnitTest.runTests(cleanup)
     if (unitTestsEnabled() == false) then
         return
@@ -22,11 +22,16 @@ function UnitTest.runTests(cleanup)
 
     luaunit.PRINT_TABLE_REF_IN_ERROR_MSG = true
     local luaunit_args = { '--output', 'text', '--verbose', '-r' }
-    local testRunResult = luaunit.LuaUnit.run(table.unpack(luaunit_args))
+    local testRunner = luaunit.LuaUnit.new()
+    local testRunResult = testRunner:runSuite(table.unpack(luaunit_args))
     cleanup()
 
     if (testRunResult ~= 0) then
         anyTestsFailed = true
+    end
+
+    if (anyTestsFailed) then
+        playdate.simulator.writeToFile(table.toString(testRunner.result.failures), "~/Downloads/testFailure.txt")
     end
 
     if (anyTestsFailed == false) then

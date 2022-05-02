@@ -3,7 +3,7 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
-import "utils/TableMerge"
+import "utils/Table"
 
 import "actors/Player"
 import "actors/Background"
