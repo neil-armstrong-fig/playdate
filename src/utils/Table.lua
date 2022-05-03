@@ -1,3 +1,12 @@
+function table.length(table)
+    print("Probably should just create some kind of table class instead of this crappy length calculation...")
+    local count = 0
+    for _ in pairs(table) do
+        count = count + 1
+    end
+    return count
+end
+
 -- Taken from https://gist.github.com/qizhihere/cb2a14432d9bf65693ad?permalink_comment_id=4104319#gistcomment-4104319
 function table.merge(table1, table2)
     if (table1 == nil) then
@@ -19,20 +28,19 @@ local function toString(table)
         return "nil"
     end
 
-    if type(table) == 'table' then
-        local asString = '{ '
-        for key, value in pairs(table) do
-            if type(key) ~= 'number' then
-                key = '"' .. key .. '"'
-            end
-            asString = asString .. '[' .. key .. '] = ' .. toString(value) .. ','
-        end
-        return asString .. '} '
+    if type(table) ~= "table" then
+        return tostring(table)
     end
 
-    return tostring(table)
+    local asString = "{ "
+    for key, value in pairs(table) do
+        asString = asString .. key .. " = " .. toString(value) .. ","
+    end
+    return asString .. " }"
 end
 
 function table.toString(table)
     return toString(table)
 end
+
+import "Table-Test"

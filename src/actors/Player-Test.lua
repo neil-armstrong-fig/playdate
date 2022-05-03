@@ -24,102 +24,102 @@ local function createTarget(config)
     }))
 end
 
-TestPlayerClass = {}
+TestPlayerClass_Init = {
+    -- Init
+    testShouldInitPlayer = function()
+        createTarget()
 
--- Init
-function TestPlayerClass:testInit()
-    createTarget()
+        luaunit.assertEquals(target.speed, expectedStartingSpeed)
+        luaunit.assertEquals(target.sprite.height, 84)
+        luaunit.assertEquals(target.sprite.width, 92)
+        luaunit.assertEquals(target.sprite.x, expectedStartingX)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY)
+    end,
+}
 
-    luaunit.assertEquals(target.speed, expectedStartingSpeed)
-    luaunit.assertEquals(target.sprite.height, 84)
-    luaunit.assertEquals(target.sprite.width, 92)
-    luaunit.assertEquals(target.sprite.x, expectedStartingX)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY)
-end
+TestPlayerClass_LogicLoopUp = {
+    testShouldMovePlayerUpWhenUpButtonPressed = function()
+        createTarget()
 
--- Up
-function TestPlayerClass:testUpButtonPressed()
-    createTarget()
+        playdateMock.simulateButtonPress(playdate.kButtonUp)
+        target:logicLoop()
 
-    playdateMock.simulateButtonPress(playdate.kButtonUp)
-    target:logicLoop()
+        luaunit.assertEquals(target.sprite.x, expectedStartingX)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY - expectedStartingSpeed)
+    end,
+    testShouldMovePlayerUpAtAcceleratedSpeed = function()
+        createTarget({speed = acceleratedSpeed})
 
-    luaunit.assertEquals(target.sprite.x, expectedStartingX)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY - expectedStartingSpeed)
-end
+        playdateMock.simulateButtonPress(playdate.kButtonUp)
+        target:logicLoop()
 
-function TestPlayerClass:testUpButtonPressedAtAcceleratedSpeed()
-    createTarget({ speed = acceleratedSpeed })
+        luaunit.assertEquals(target.sprite.x, expectedStartingX)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY - acceleratedSpeed)
+    end,
+}
 
-    playdateMock.simulateButtonPress(playdate.kButtonUp)
-    target:logicLoop()
+TestPlayerClass_LogicLoopDown = {
+    testShouldMovePlayerDownWhenDownButtonPressed = function()
+        createTarget()
 
-    luaunit.assertEquals(target.sprite.x, expectedStartingX)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY - acceleratedSpeed)
-end
+        playdateMock.simulateButtonPress(playdate.kButtonDown)
+        target:logicLoop()
 
--- Down
-function TestPlayerClass:testDownButtonPressed()
-    createTarget()
+        luaunit.assertEquals(target.sprite.x, expectedStartingX)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY + expectedStartingSpeed)
+    end,
+    testShouldMovePlayerDownAtAcceleratedSpeed = function()
+        createTarget({speed = acceleratedSpeed})
 
-    playdateMock.simulateButtonPress(playdate.kButtonDown)
-    target:logicLoop()
+        playdateMock.simulateButtonPress(playdate.kButtonDown)
+        target:logicLoop()
 
-    luaunit.assertEquals(target.sprite.x, expectedStartingX)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY + expectedStartingSpeed)
-end
+        luaunit.assertEquals(target.sprite.x, expectedStartingX)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY + acceleratedSpeed)
+    end,
+}
 
-function TestPlayerClass:testDownButtonPressedAtAcceleratedSpeed()
-    createTarget({ speed = acceleratedSpeed })
+TestPlayerClass_LogicLoopRight = {
+    testShouldMovePlayerToTheRightWhenRightButtonPressed = function()
+        createTarget()
 
-    playdateMock.simulateButtonPress(playdate.kButtonDown)
-    target:logicLoop()
+        playdateMock.simulateButtonPress(playdate.kButtonRight)
+        target:logicLoop()
 
-    luaunit.assertEquals(target.sprite.x, expectedStartingX)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY + acceleratedSpeed)
-end
+        luaunit.assertEquals(target.sprite.x, expectedStartingX + expectedStartingSpeed)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY)
+    end,
+    testShouldMovePlayerToTheRightAtAcceleratedSpeed = function()
+        createTarget({speed = acceleratedSpeed})
 
--- Right
-function TestPlayerClass:testRightButtonPressed()
-    createTarget()
+        playdateMock.simulateButtonPress(playdate.kButtonRight)
+        target:logicLoop()
 
-    playdateMock.simulateButtonPress(playdate.kButtonRight)
-    target:logicLoop()
+        luaunit.assertEquals(target.sprite.x, expectedStartingX + acceleratedSpeed)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY)
+    end,
+}
 
-    luaunit.assertEquals(target.sprite.x, expectedStartingX + expectedStartingSpeed)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY)
-end
+TestPlayerClass_LogicLoopLeft = {
+    testShouldMovePlayerToTheLeftWhenLeftButtonPressed = function()
+        createTarget()
 
-function TestPlayerClass:testRightButtonPressedAtAcceleratedSpeed()
-    createTarget({ speed = acceleratedSpeed })
+        playdateMock.simulateButtonPress(playdate.kButtonLeft)
+        target:logicLoop()
 
-    playdateMock.simulateButtonPress(playdate.kButtonRight)
-    target:logicLoop()
+        luaunit.assertEquals(target.sprite.x, expectedStartingX - expectedStartingSpeed)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY)
+    end,
+    testShouldMovePlayerToTheLeftAtAcceleratedSpeed = function()
+        createTarget({speed = acceleratedSpeed})
 
-    luaunit.assertEquals(target.sprite.x, expectedStartingX + acceleratedSpeed)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY)
-end
+        playdateMock.simulateButtonPress(playdate.kButtonLeft)
+        target:logicLoop()
 
--- Left
-function TestPlayerClass:testLeftButtonPressed()
-    createTarget()
-
-    playdateMock.simulateButtonPress(playdate.kButtonLeft)
-    target:logicLoop()
-
-    luaunit.assertEquals(target.sprite.x, expectedStartingX - expectedStartingSpeed)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY)
-end
-
-function TestPlayerClass:testLeftButtonPressedAtAcceleratedSpeed()
-    createTarget({ speed = acceleratedSpeed })
-
-    playdateMock.simulateButtonPress(playdate.kButtonLeft)
-    target:logicLoop()
-
-    luaunit.assertEquals(target.sprite.x, expectedStartingX - acceleratedSpeed)
-    luaunit.assertEquals(target.sprite.y, expectedStartingY)
-    target:cleanup()
-end
+        luaunit.assertEquals(target.sprite.x, expectedStartingX - acceleratedSpeed)
+        luaunit.assertEquals(target.sprite.y, expectedStartingY)
+        target:cleanup()
+    end
+}
 
 UnitTest.runTests(cleanup)

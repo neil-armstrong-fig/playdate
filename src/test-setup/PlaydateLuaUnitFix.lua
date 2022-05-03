@@ -1,53 +1,53 @@
 -- stub out require
 function require()
-	-- do nothing
+    -- do nothing
 end
 
--- replace 'os' functionality
+-- replace "os" functionality
 os = {}
 
 function os.clock()
-	return playdate.getCurrentTimeMilliseconds() // 1000
+    return playdate.getCurrentTimeMilliseconds() // 1000
 end
 
 function os.getenv()
-	return nil
+    return nil
 end
 
 function os.date(arg)
-	return nowAsString()
+    return nowAsString()
 end
 
 function os.exit(value)
     if playdate.isSimulator then
-	    playdate.simulator.exit(value)
+        playdate.simulator.exit(value)
     end
 end
 
 function nowAsString()
-	local now = playdate.getTime()
-	local nowString = now.year.."-"..now.month.."-"..now.day.." "..now.hour..":"..now.minute..":"..now.second
-	return nowString
+    local now = playdate.getTime()
+    local nowString = now.year .. "-" .. now.month .. "-" .. now.day .. " " .. now.hour .. ":" .. now.minute .. ":" .. now.second
+    return nowString
 end
 
--- replace 'io' functionality
+-- replace "io" functionality
 io = {}
 io.stdout = {}
 
 function io.stdout:write(...)
-	print(...)
+    print(...)
 end
 
 function io.open(filename, readwrite)
-	local fileOpenAttr = nil
-	if readwrite == 'w' then
-		fileOpenAttr = playdate.file.kFileWrite
-	elseif readwrite == 'r' then
-		fileOpenAttr = playdate.file.kFileRead
-	elseif readwrite == 'a' then
-		fileOpenAttr = playdate.file.kFileAppend
-	end
-	local fd = playdate.file.open(filename, fileOpenAttr)
-	assert(fd)
-	return fd
+    local fileOpenAttr
+    if readwrite == "w" then
+        fileOpenAttr = playdate.file.kFileWrite
+    elseif readwrite == "r" then
+        fileOpenAttr = playdate.file.kFileRead
+    elseif readwrite == "a" then
+        fileOpenAttr = playdate.file.kFileAppend
+    end
+    local fd = playdate.file.open(filename, fileOpenAttr)
+    assert(fd)
+    return fd
 end

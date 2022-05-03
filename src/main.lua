@@ -4,6 +4,7 @@ import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
 import "utils/Table"
+import "utils/Lists"
 
 import "actors/Player"
 import "actors/Background"
