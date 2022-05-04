@@ -8,29 +8,23 @@ local acceleratedSpeed = 20
 
 local playdateGraphicsMock
 local playdateMock
+local spriteMock
+
 local target
 
-local function cleanup()
-    if (target ~= nil) then
-        target:cleanup()
-    end
-end
-
 local function createTarget(config)
-    cleanup()
-
     playdateGraphicsMock = buildPlaydateGraphicsMock()
     playdateMock = buildPlaydateMock()
     target = Player(playdateGraphicsMock, table.merge(config, {
         playdateMock = playdateMock
     }))
+    spriteMock = playdateGraphicsMock.sprite.generatedMock()
 end
 
 TestPlayerClass_Init = {
     testShouldInitPlayer = function()
         createTarget()
 
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(target.speed, expectedStartingSpeed)
         luaunit.assertNotIsNil(spriteMock)
         luaunit.assertEquals(spriteMock.wasMovedTo[1], {
@@ -50,7 +44,6 @@ TestPlayerClass_LogicLoopUp = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY - expectedStartingSpeed
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 200,
             y = 115
@@ -66,7 +59,6 @@ TestPlayerClass_LogicLoopUp = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY - acceleratedSpeed
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 200,
             y = 100
@@ -85,7 +77,6 @@ TestPlayerClass_LogicLoopDown = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY + expectedStartingSpeed
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 200,
             y = 125
@@ -101,7 +92,6 @@ TestPlayerClass_LogicLoopDown = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY + acceleratedSpeed
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 200,
             y = 140
@@ -120,7 +110,6 @@ TestPlayerClass_LogicLoopRight = {
 
         local expectedX = expectedStartingX + expectedStartingSpeed
         local expectedY = expectedStartingY
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 205,
             y = 120
@@ -136,7 +125,6 @@ TestPlayerClass_LogicLoopRight = {
 
         local expectedX = expectedStartingX + acceleratedSpeed
         local expectedY = expectedStartingY
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 220,
             y = 120
@@ -155,7 +143,6 @@ TestPlayerClass_LogicLoopLeft = {
 
         local expectedX = expectedStartingX - expectedStartingSpeed
         local expectedY = expectedStartingY
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 195,
             y = 120
@@ -171,14 +158,23 @@ TestPlayerClass_LogicLoopLeft = {
 
         local expectedX = expectedStartingX - acceleratedSpeed
         local expectedY = expectedStartingY
-        local spriteMock = playdateGraphicsMock.sprite.generatedMock()
         luaunit.assertEquals(spriteMock.wasMovedTo[2], {
             x = 180,
             y = 120
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
-    end
+    end,
 }
 
-UnitTest.runTests(cleanup)
+TestPlayerClass_Cleanup = {
+    testShouldCleanUpSprite = function()
+        createTarget()
+
+        target:cleanup()
+
+        luaunit.assertEquals(spriteMock.removeWasCalled, true)
+    end,
+}
+
+UnitTest.runTests()

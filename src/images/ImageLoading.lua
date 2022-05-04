@@ -1,6 +1,4 @@
-local graphics <const> = playdate.graphics
-
-local function loadImageFile(fileName)
+local function loadImageFile(graphics, fileName)
     local filePath = string.format("images/%s", fileName);
 
     local image = graphics.image.new(filePath)
@@ -9,12 +7,13 @@ local function loadImageFile(fileName)
     return image
 end
 
+
 ImageLoading = {}
 
-function ImageLoading.loadPlayerImage()
-    return loadImageFile("playerImage")
+function ImageLoading.loadPlayerImage(graphics)
+    return loadImageFile(graphics, "playerImage")
 end
 
-function ImageLoading.loadBackgroundImage()
-    return loadImageFile("background")
+function ImageLoading.loadBackgroundImage(graphics)
+    return loadImageFile(graphics, "background")
 end

@@ -4,7 +4,7 @@ local function createPlayerImage(graphics, startingPosition)
     -- Set up the player sprite.
     -- The :setCenter() call specifies that the sprite will be anchored at its center.
     -- The :moveTo() call moves our sprite to the center of the display.
-    local playerSprite = graphics.sprite.new(ImageLoading.loadPlayerImage())
+    local playerSprite = graphics.sprite.new(ImageLoading.loadPlayerImage(graphics))
     playerSprite:moveTo(startingPosition.x, startingPosition.y) -- this is where the center of the sprite is placed;
     playerSprite:add() -- This is critical!
 

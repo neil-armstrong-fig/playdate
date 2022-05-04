@@ -7,7 +7,7 @@ local function createBackgroundImage(graphics)
     -- 2) Use a tilemap, assign it to a sprite with sprite:setTilemap(tilemap),
     --       and call :setZIndex() with some low number so the background stays behind
     --       your other sprites.
-    local backgroundImage = ImageLoading.loadBackgroundImage()
+    local backgroundImage = ImageLoading.loadBackgroundImage(graphics)
 
     function drawBackgroundCallback(x, y, width, height)
         graphics.setClipRect(x, y, width, height) -- let's only draw the part of the screen that's dirty

@@ -40,6 +40,22 @@ function PlaydateGraphicsSpriteBuilderMock.generatedMock()
     return spriteMock
 end
 
+local PlaydateGraphicsImageBuilderMock = {}
+
+local imageBuilderNewWasCalledWith
+local imageMock
+function PlaydateGraphicsImageBuilderMock.new(filePath)
+    imageBuilderNewWasCalledWith = filePath
+    imageMock = {stubbed = "can replace with something more real if needed"}
+    return imageMock
+end
+function PlaydateGraphicsImageBuilderMock.newCalledWith()
+    return imageBuilderNewWasCalledWith
+end
+function PlaydateGraphicsImageBuilderMock.generateImage()
+    return imageMock
+end
+
 PlaydateGraphicsMock = {}
 
 local drawTextWasCalledWith
@@ -65,6 +81,7 @@ function PlaydateGraphicsMock.drawTextCalledWith()
 end
 
 PlaydateGraphicsMock.sprite = PlaydateGraphicsSpriteBuilderMock
+PlaydateGraphicsMock.image = PlaydateGraphicsImageBuilderMock
 
 -- Always build the mock to ensure state is reset!
 function buildPlaydateGraphicsMock()
