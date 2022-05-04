@@ -3,8 +3,6 @@ import "luaunit"
 
 import "mocks/Playdate-Mock"
 
-local testNamesCompleted = {}
-
 local function listContains(list, itemToFind)
     for _, item in pairs(list) do
         if (item == itemToFind) then
@@ -19,24 +17,14 @@ local function getTestNamesFromGlobalEnvironment()
     return luaunit.LuaUnit.collectTests()
 end
 
-local function getNewTestsToExecute()
-    local allTestNames = getTestNamesFromGlobalEnvironment()
-
-    local newTestsToRun = {}
-    for _, testNameToCheck in pairs(allTestNames) do
-        if (listContains(testNamesCompleted, testNameToCheck) == false) then
-            table.insert(newTestsToRun, testNameToCheck)
-        end
+local function removeAllTestsFromGlobalEnvironment()
+    for _, testName in pairs(getTestNamesFromGlobalEnvironment()) do
+        _G[testName] = nil
     end
-    return newTestsToRun
-end
-
-local function removeTestFromGlobalEnvironment(testName)
-    _G[testName] = nil
 end
 
 local function runTests()
-    local testNamesToExecute = getNewTestsToExecute()
+    local testNamesToExecute = getTestNamesFromGlobalEnvironment()
     if (testNamesToExecute == {}) then
         return 0
     end
@@ -51,22 +39,13 @@ local function runTests()
 
     local testResult = luaunit.LuaUnit.run(table.unpack(testRunnerArguments))
 
-    for _, completedTestName in pairs(testNamesToExecute) do
-        table.insert(testNamesCompleted, completedTestName)
-        removeTestFromGlobalEnvironment(completedTestName)
-    end
+    removeAllTestsFromGlobalEnvironment()
 
     return testResult
 end
 
 local function unitTestsEnabled()
     return playdate.isSimulator == 1
-end
-
-local function removeAllTestsFromGlobalEnvironment()
-    for _, testName in pairs(getTestNamesFromGlobalEnvironment()) do
-        removeTestFromGlobalEnvironment(testName)
-    end
 end
 
 local anyTestsFailed = false
