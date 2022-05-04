@@ -3,16 +3,18 @@ import "./state/builders/GameState-Builder"
 
 local playdateGraphicsMock
 
+local target
+
 local function createTarget()
     playdateGraphicsMock = buildPlaydateGraphicsMock()
-    return UiDraw(playdateGraphicsMock)
+    target = UiDraw(playdateGraphicsMock)
 end
 
 TestUiDrawClass = {
     testShouldDrawPlayerLocation = function()
-        local uiDraw = createTarget()
+        createTarget()
 
-        uiDraw:drawUi(GameState_Builder.buildTestGameState())
+        target:drawUi(GameState_Builder.buildTestGameState())
 
         local actual = playdateGraphicsMock.drawTextCalledWith()
         luaunit.assertEquals(actual[1], {
