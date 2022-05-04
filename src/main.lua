@@ -6,16 +6,27 @@ import "CoreLibs/timer"
 import "utils/Table"
 import "utils/Lists"
 
-import "actors/Player"
+import "actors/player/Player"
 import "actors/Background"
-import "RenderLoop"
 
-local player = Player({speed = 20})
-local background = Background()
+import "state/GameState"
+
+import "render-loop/RenderLoop"
+
+local graphics <const> = playdate.graphics
+
+local player = Player(graphics, {speed = 20})
+local background = Background(graphics)
+
+local renderLoop = RenderLoop(graphics)
 
 function playdate.update()
     player:logicLoop()
 
-    renderLoop()
+    local currentGameState = GameState(
+            player
+    )
+
+    renderLoop:update(currentGameState)
 end
 

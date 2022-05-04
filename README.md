@@ -45,3 +45,9 @@ Tests run at runtime on the simulator, so can mock via injection
 ### Mocks
 - Chuck them in the `test-setup/mocks` folder and ensure `UnitTest.lua` imports them so that they are available to all tests
 - For naming, postfix with `Mock` to avoid collisions with the real type
+
+### Builders
+All good tests need some builders to prevent repeating data models, and if the models change then only one place needs to be updated
+- Add a `builders` folder to the class you want to create a builder for
+- Use the postfix `<ClassName>-Builder.lua` to identify them
+- Ideally these should use the mocks as well to make testing with them easier

@@ -1,8 +1,6 @@
 import "./images/ImageLoading"
 
-local graphics <const> = playdate.graphics
-
-local function createBackgroundImage()
+local function createBackgroundImage(graphics)
     -- We want an environment displayed behind our sprite.
     -- There are generally two ways to do this:
     -- 1) Use setBackgroundDrawingCallback() to draw a background image. (This is what we're doing below.)
@@ -21,6 +19,6 @@ end
 
 class("Background").extends()
 
-function Background:init()
-    createBackgroundImage()
+function Background:init(graphics)
+    createBackgroundImage(graphics)
 end

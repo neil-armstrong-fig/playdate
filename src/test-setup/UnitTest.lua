@@ -2,16 +2,7 @@ import "PlaydateLuaUnitFix"
 import "luaunit"
 
 import "mocks/Playdate-Mock"
-
-local function listContains(list, itemToFind)
-    for _, item in pairs(list) do
-        if (item == itemToFind) then
-            return true
-        end
-    end
-
-    return false
-end
+import "mocks/PlaydateGraphics-Mock"
 
 local function getTestNamesFromGlobalEnvironment()
     return luaunit.LuaUnit.collectTests()
