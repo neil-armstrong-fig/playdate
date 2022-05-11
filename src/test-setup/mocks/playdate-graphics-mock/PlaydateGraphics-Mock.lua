@@ -57,9 +57,6 @@ function PlaydateGraphicsMock.clearClipRectCalled()
     return clearClipRectCalled
 end
 
-PlaydateGraphicsMock.sprite = buildPlaydateGraphicsSpriteMock()
-PlaydateGraphicsMock.image = buildPlaydateGraphicsImageMock()
-
 -- Always build the mock to ensure state is reset!
 function buildPlaydateGraphicsMock()
     PlaydateGraphicsMock.sprite = buildPlaydateGraphicsSpriteMock()

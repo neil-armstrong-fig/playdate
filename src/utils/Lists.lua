@@ -1,7 +1,6 @@
 lists = {}
 
 function lists.length(list)
-    print("Probably should just create some kind of list class instead of this crappy length calculation...")
     local count = 0
     for _ in pairs(list) do
         count = count + 1

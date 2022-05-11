@@ -1,3 +1,5 @@
+import "mocks/PlaydateTimer-Mock"
+
 local PlaydateMock = {}
 
 local buttonToPressMock
@@ -10,6 +12,8 @@ end
 
 -- Always build the mock to ensure state is reset!
 function buildPlaydateMock()
+    PlaydateMock.timer = buildPlaydateTimer()
+
     buttonToPressMock = nil
 
     return PlaydateMock

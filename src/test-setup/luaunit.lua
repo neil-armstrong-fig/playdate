@@ -34,6 +34,8 @@ M.VERBOSITY_LOW     = 1
 M.VERBOSITY_QUIET   = 0
 M.VERBOSITY_VERBOSE = 20
 
+M.SUPER_QUIET_LOGS = false
+
 -- set EXPORT_ASSERT_TO_GLOBALS to have all asserts visible as global values
 -- EXPORT_ASSERT_TO_GLOBALS = true
 
@@ -1306,7 +1308,9 @@ TapOutput.__class__ = 'TapOutput'
     end
 
     function TapOutput:endSuite()
-        print( '# '..M.LuaUnit.statusLine( self.result ) )
+        if (M.SUPER_QUIET_LOGS) then
+            print( '# '..M.LuaUnit.statusLine( self.result ) )
+        end
         return self.result.notPassedCount
     end
 
@@ -1364,7 +1368,9 @@ JUnitOutput.__class__ = 'JUnitOutput'
     end
 
     function JUnitOutput:endSuite()
-        print( '# '..M.LuaUnit.statusLine(self.result))
+        if (M.SUPER_QUIET_LOGS) then
+            print( '# '..M.LuaUnit.statusLine(self.result))
+        end
 
         -- XML file writing
         self.fd:write('<?xml version="1.0" encoding="UTF-8" ?>\n')
@@ -1531,10 +1537,12 @@ TextOutput.__class__ = 'TextOutput'
 	    playdate.setNewlinePrinted(false)
 
         if node:isPassed() then
-            if self.verbosity > M.VERBOSITY_DEFAULT then
-                io.stdout:write("Ok\n")
-            else
-                io.stdout:write(".")
+            if (M.SUPER_QUIET_LOGS) then
+                if self.verbosity > M.VERBOSITY_DEFAULT then
+                    io.stdout:write("Ok\n")
+                else
+                    io.stdout:write(".")
+                end
             end
         else
             if self.verbosity > M.VERBOSITY_DEFAULT then
@@ -1548,7 +1556,9 @@ TextOutput.__class__ = 'TextOutput'
                 ]]
             else
                 -- write only the first character of status
-                io.stdout:write(string.sub(node.status, 1, 1))
+                if (M.SUPER_QUIET_LOGS) then
+                    io.stdout:write(string.sub(node.status, 1, 1))
+                end
             end
         end
 
@@ -1579,10 +1589,14 @@ TextOutput.__class__ = 'TextOutput'
             print()
         end
         self:displayFailedTests()
-        print( M.LuaUnit.statusLine( self.result ) )
+        if (M.SUPER_QUIET_LOGS) then
+            print( M.LuaUnit.statusLine( self.result ) )
+        end
         local ignoredString = ""
         if self.result.notPassedCount == 0 then
-            print('OK')
+            if (M.SUPER_QUIET_LOGS) then
+                print('OK')
+            end
         end
     end
 

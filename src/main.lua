@@ -30,3 +30,4 @@ function playdate.update()
     renderLoop:update(currentGameState)
 end
 
+UnitTest.runTests()

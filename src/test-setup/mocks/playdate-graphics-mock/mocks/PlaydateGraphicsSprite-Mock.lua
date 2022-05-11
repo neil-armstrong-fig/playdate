@@ -4,7 +4,6 @@ function PlaydateGraphicsSpriteMock:init()
     self.wasMovedTo = nil
     self.addWasCalled = false
     self.removeWasCalled = false
-    self.updateWasCalled = false
 end
 
 function PlaydateGraphicsSpriteMock:moveTo(x, y)
@@ -23,10 +22,6 @@ end
 
 function PlaydateGraphicsSpriteMock:remove()
     self.removeWasCalled = true
-end
-
-function PlaydateGraphicsSpriteMock:update()
-    self.updateWasCalled = true
 end
 
 local PlaydateGraphicsSpriteBuilderMock = {}
@@ -53,9 +48,20 @@ function PlaydateGraphicsSpriteBuilderMock.setBackgroundDrawingCallbackCalledWit
     return spriteSetBackgroundDrawingCallbackCalledWith
 end
 
+local updateWasCalled
+function PlaydateGraphicsSpriteBuilderMock.update()
+    updateWasCalled = true
+end
+function PlaydateGraphicsSpriteBuilderMock.updateWasCalled()
+    return updateWasCalled
+end
+
 function buildPlaydateGraphicsSpriteMock()
     spriteBuilderNewWasCalledWith = nil
     spriteMock = nil
+
+    spriteSetBackgroundDrawingCallbackCalledWith = nil
+    updateWasCalled = nil
 
     return PlaydateGraphicsSpriteBuilderMock
 end

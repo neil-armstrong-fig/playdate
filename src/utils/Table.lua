@@ -1,5 +1,4 @@
 function table.length(table)
-    print("Probably should just create some kind of table class instead of this crappy length calculation...")
     local count = 0
     for _ in pairs(table) do
         count = count + 1

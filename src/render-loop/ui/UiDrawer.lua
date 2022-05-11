@@ -1,12 +1,12 @@
-class("UiDraw").extends()
+class("UiDrawer").extends()
 
-function UiDraw:init(graphics)
+function UiDrawer:init(graphics)
     self.drawText = graphics.drawText
 end
 
-function UiDraw:drawUi(gameState)
+function UiDrawer:drawUi(gameState)
     local positionText = "Player: (" .. gameState.playerPosition.x .. ", " .. gameState.playerPosition.y .. ")"
     self.drawText(positionText, 2, 220)
 end
 
-import "UiDraw-Test"
+import "UiDrawer-Test"

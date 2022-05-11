@@ -23,7 +23,7 @@ function Player:init(graphics, config)
     self.sprite = createPlayerImage(graphics, self.position)
     self.speed = 5
 
-    if (config == null) then
+    if (config == nil) then
         return
     end
     if (config.speed) then
