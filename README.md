@@ -1,3 +1,5 @@
+[![Playdate-ContinuousDeliveryPipeline](https://github.com/neil-armstrong-fig/playdate/actions/workflows/continuous-delivery-pipeline.yml/badge.svg?branch=main)](https://github.com/neil-armstrong-fig/playdate/actions/workflows/continuous-delivery-pipeline.yml)
+
 ## Setup
 
 ### Mac
