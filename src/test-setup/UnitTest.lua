@@ -2,7 +2,7 @@ import "PlaydateLuaUnitFix"
 import "luaunit"
 
 import "mocks/Playdate-Mock"
-import "mocks/PlaydateGraphics-Mock"
+import "mocks/playdate-graphics-mock/PlaydateGraphics-Mock"
 
 local function getTestNamesFromGlobalEnvironment()
     return luaunit.LuaUnit.collectTests()

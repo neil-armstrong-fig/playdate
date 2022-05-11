@@ -22,3 +22,5 @@ class("Background").extends()
 function Background:init(graphics)
     createBackgroundImage(graphics)
 end
+
+import "Background-Test"

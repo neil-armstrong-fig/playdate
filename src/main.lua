@@ -7,7 +7,7 @@ import "utils/Table"
 import "utils/Lists"
 
 import "actors/player/Player"
-import "actors/Background"
+import "actors/background/Background"
 
 import "state/GameState"
 
