@@ -1,8 +1,11 @@
 import "PlaydateLuaUnitFix"
 import "luaunit"
 
-import "mocks/Playdate-Mock"
+import "mocks/playdate-mock/Playdate-Mock"
 import "mocks/playdate-graphics-mock/PlaydateGraphics-Mock"
+
+local logTestNames = false
+luaunit.SUPER_QUIET_LOGS = logTestNames
 
 local function getTestNamesFromGlobalEnvironment()
     return luaunit.LuaUnit.collectTests()
@@ -22,9 +25,13 @@ local function runTests()
 
     local testRunnerArguments = {"--output", "text", "--quiet"}
 
-    print("\nRunning tests...")
+    if (logTestNames) then
+        print("\nRunning tests...")
+    end
     for _, testNameToExecute in pairs(testNamesToExecute) do
-        print(testNameToExecute)
+        if (logTestNames) then
+            print(testNameToExecute)
+        end
         table.insert(testRunnerArguments, testNameToExecute)
     end
 

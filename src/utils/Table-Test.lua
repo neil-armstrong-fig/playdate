@@ -43,5 +43,3 @@ TestTable_ToString = {
         luaunit.assertEquals(result, "2345")
     end,
 }
-
-UnitTest.runTests()

@@ -150,5 +150,3 @@ TestLists_ToString = {
         luaunit.assertEquals(result, "[1,2,3,]")
     end,
 }
-
-UnitTest.runTests()

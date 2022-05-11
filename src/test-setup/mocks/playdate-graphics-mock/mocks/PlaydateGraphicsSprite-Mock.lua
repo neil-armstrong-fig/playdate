@@ -4,6 +4,7 @@ function PlaydateGraphicsSpriteMock:init()
     self.wasMovedTo = nil
     self.addWasCalled = false
     self.removeWasCalled = false
+    self.updateWasCalled = false
 end
 
 function PlaydateGraphicsSpriteMock:moveTo(x, y)
@@ -22,6 +23,10 @@ end
 
 function PlaydateGraphicsSpriteMock:remove()
     self.removeWasCalled = true
+end
+
+function PlaydateGraphicsSpriteMock:update()
+    self.updateWasCalled = true
 end
 
 local PlaydateGraphicsSpriteBuilderMock = {}

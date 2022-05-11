@@ -27,5 +27,3 @@ TestGameStateClass = {
         luaunit.assertEquals(string.match(caughtError, "Player position was nil"), "Player position was nil")
     end,
 }
-
-UnitTest.runTests()

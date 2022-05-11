@@ -1,16 +1,13 @@
 import "./test-setup/UnitTest"
 
 local playdateGraphicsMock
-local playdateMock
 local imageMock
 
 local target
 
-local function createTarget(config)
+local function createTarget()
     playdateGraphicsMock = buildPlaydateGraphicsMock()
-    target = Background(playdateGraphicsMock, table.merge(config, {
-        playdateMock = playdateMock
-    }))
+    target = Background(playdateGraphicsMock)
     imageMock = playdateGraphicsMock.image.generatedMock()
 end
 
@@ -31,5 +28,3 @@ TestBackgroundClass = {
         luaunit.assertEquals(playdateGraphicsMock.clearClipRectCalled(), true)
     end,
 }
-
-UnitTest.runTests()

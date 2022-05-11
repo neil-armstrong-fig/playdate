@@ -7,7 +7,7 @@ local target
 
 local function createTarget()
     playdateGraphicsMock = buildPlaydateGraphicsMock()
-    target = UiDraw(playdateGraphicsMock)
+    target = UiDrawer(playdateGraphicsMock)
 end
 
 TestUiDrawClass = {
@@ -24,5 +24,3 @@ TestUiDrawClass = {
         })
     end
 }
-
-UnitTest.runTests()

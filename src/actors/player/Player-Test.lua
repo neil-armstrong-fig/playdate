@@ -176,5 +176,3 @@ TestPlayerClass_Cleanup = {
         luaunit.assertEquals(spriteMock.removeWasCalled, true)
     end,
 }
-
-UnitTest.runTests()
