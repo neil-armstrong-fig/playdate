@@ -35,7 +35,11 @@ function Player:init(graphics, config)
     end
 end
 
-local function updatePlayerPosition(playdate, originalPosition, speed)
+local function updateRotation(originalRotation)
+    return originalRotation + 1
+end
+
+local function updatePosition(playdate, originalPosition, speed)
     local x = originalPosition.x
     local y = originalPosition.y
 
@@ -59,15 +63,11 @@ local function updatePlayerPosition(playdate, originalPosition, speed)
     end
 end
 
-local function updateRotation(originalRotation)
-    return originalRotation + 1
-end
-
 function Player:logicLoop()
     self.rotation = updateRotation(self.rotation)
     self.sprite:setRotation(self.rotation)
 
-    self.position = updatePlayerPosition(self.playdate, self.position, self.speed)
+    self.position = updatePosition(self.playdate, self.position, self.speed)
     if (self.sprite.x ~= self.position.x or self.sprite.y ~= self.position.y) then
         self.sprite:moveTo(self.position.x, self.position.y)
     end

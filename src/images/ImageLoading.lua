@@ -10,7 +10,7 @@ end
 ImageLoading = {}
 
 function ImageLoading.loadPlayerImage(graphics)
-    return loadImageFile(graphics, "luggage")
+    return loadImageFile(graphics, "suitcase")
 end
 
 function ImageLoading.loadBackgroundImage(graphics)
