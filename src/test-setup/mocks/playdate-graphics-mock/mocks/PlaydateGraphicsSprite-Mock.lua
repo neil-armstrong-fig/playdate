@@ -1,3 +1,5 @@
+import "././helpers/TestHelpers"
+
 class("PlaydateGraphicsSpriteMock").extends()
 
 function PlaydateGraphicsSpriteMock:init()
@@ -10,12 +12,7 @@ end
 
 function PlaydateGraphicsSpriteMock:moveTo(x, y)
     local params = {x = x, y = y}
-
-    if (self.moveToCalledWith == nil) then
-        self.moveToCalledWith = {params}
-    else
-        table.insert(self.moveToCalledWith, params)
-    end
+    self.moveToCalledWith = TestHelpers.addCapturedParams(self.moveToCalledWith, params)
 
     self.x = x
     self.y = y
@@ -23,22 +20,12 @@ end
 
 function PlaydateGraphicsSpriteMock:setRotation(rotation)
     local params = {rotation = rotation}
-
-    if (self.setRotationCalledWith == nil) then
-        self.setRotationCalledWith = {params}
-    else
-        table.insert(self.setRotationCalledWith, params)
-    end
+    self.setRotationCalledWith = TestHelpers.addCapturedParams(self.setRotationCalledWith, params)
 end
 
 function PlaydateGraphicsSpriteMock:setScale(scale)
     local params = {scale = scale}
-
-    if (self.setScaleCalledWith == nil) then
-        self.setScaleCalledWith = {params}
-    else
-        table.insert(self.setScaleCalledWith, params)
-    end
+    self.setScaleCalledWith = TestHelpers.addCapturedParams(self.setScaleCalledWith, params)
 end
 
 function PlaydateGraphicsSpriteMock:add()

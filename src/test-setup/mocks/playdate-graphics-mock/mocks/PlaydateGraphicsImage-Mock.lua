@@ -1,3 +1,5 @@
+import "././helpers/TestHelpers"
+
 class("PlaydateGraphicsImageMock").extends()
 
 function PlaydateGraphicsImageMock:init()
@@ -5,13 +7,8 @@ function PlaydateGraphicsImageMock:init()
 end
 
 function PlaydateGraphicsImageMock:draw(x, y)
-    if (self.drawWasCalledWith == nil) then
-        self.drawWasCalledWith = {
-            {x = x, y = y}
-        }
-    else
-        table.insert(self.drawWasCalledWith, {x = x, y = y})
-    end
+    local params = {x = x, y = y}
+    self.drawWasCalledWith = TestHelpers.addCapturedParams(self.drawWasCalledWith, params)
 end
 
 local PlaydateGraphicsImageBuilderMock = {}

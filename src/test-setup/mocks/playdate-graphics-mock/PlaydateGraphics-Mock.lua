@@ -1,25 +1,17 @@
 import "mocks/PlaydateGraphicsImage-Mock"
 import "mocks/PlaydateGraphicsSprite-Mock"
+import "./helpers/TestHelpers"
 
 PlaydateGraphicsMock = {}
 
 local drawTextWasCalledWith
 function PlaydateGraphicsMock.drawText(text, x, y)
-    if (drawTextWasCalledWith == nil) then
-        drawTextWasCalledWith = {
-            {
-                text = text,
-                x = x,
-                y = y
-            }
-        }
-    else
-        table.insert(drawTextWasCalledWith, {
-            text = text,
-            x = x,
-            y = y
-        })
-    end
+    local params = {
+        text = text,
+        x = x,
+        y = y
+    }
+    drawTextWasCalledWith = TestHelpers.addCapturedParams(drawTextWasCalledWith, params)
 end
 function PlaydateGraphicsMock.drawTextCalledWith()
     return drawTextWasCalledWith
@@ -27,23 +19,15 @@ end
 
 local setClipRectCalledWith
 function PlaydateGraphicsMock.setClipRect(x, y, width, height)
-    if (setClipRectCalledWith == nil) then
-        setClipRectCalledWith = {
-            {
-                x = x,
-                y = y,
-                width = width,
-                height = height
-            }
-        }
-    else
-        table.insert(setClipRectCalledWith, {
+    local params = {
+        {
             x = x,
             y = y,
             width = width,
             height = height
-        })
-    end
+        }
+    }
+    setClipRectCalledWith = TestHelpers.addCapturedParams(setClipRectCalledWith, params)
 end
 function PlaydateGraphicsMock.setClipRectCalledWith()
     return setClipRectCalledWith
