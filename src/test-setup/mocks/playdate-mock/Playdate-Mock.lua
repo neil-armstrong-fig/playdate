@@ -5,6 +5,8 @@ local PlaydateMock = {
     kButtonDown = playdate.kButtonDown,
     kButtonRight = playdate.kButtonRight,
     kButtonLeft = playdate.kButtonLeft,
+    kButtonA = playdate.kButtonA,
+    kButtonB = playdate.kButtonB,
 }
 
 local buttonToPressMock

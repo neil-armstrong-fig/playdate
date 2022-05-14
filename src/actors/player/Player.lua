@@ -17,9 +17,10 @@ function Player:init(graphics, config)
         y = 60
     }
     self.rotation = 0
+    self.speed = 5
+    self.bottomOfBeltPosition = 200
 
     self.sprite = createImage(graphics, self.position)
-    self.speed = 5
 
     if (config == nil) then
         return
@@ -41,7 +42,7 @@ local function updateRotation(playdate, originalRotation)
     return originalRotation + crankChange
 end
 
-local function updatePosition(playdate, originalPosition, speed)
+local function handleMovementKeys(playdate, originalPosition, speed)
     local x = originalPosition.x
     local y = originalPosition.y
 
@@ -65,14 +66,54 @@ local function updatePosition(playdate, originalPosition, speed)
     end
 end
 
+local function pressedDropButton(playdate)
+    return playdate.buttonIsPressed(playdate.kButtonA)
+end
+
+local function calculateDropLuggageTick(currentPosition, speed, bottomOfBeltPosition)
+    if (currentPosition.y == bottomOfBeltPosition) then
+        return currentPosition
+    end
+
+    local newY = currentPosition.y + speed
+
+    if (newY > bottomOfBeltPosition) then
+        return {
+            x = currentPosition.x,
+            y = bottomOfBeltPosition
+        }
+    end
+
+    return {
+        x = currentPosition.x,
+        y = newY
+    }
+end
+
+local function updateSpriteRotation(sprite, newRotation)
+    if (sprite.rotation ~= newRotation) then
+        sprite:setRotation(newRotation)
+    end
+end
+
+local function updateSpritePosition(sprite, newPosition)
+    if (sprite.x ~= newPosition.x or sprite.y ~= newPosition.y) then
+        sprite:moveTo(newPosition.x, newPosition.y)
+    end
+end
+
 function Player:logicLoop()
     self.rotation = updateRotation(self.playdate, self.rotation)
-    self.sprite:setRotation(self.rotation)
 
-    self.position = updatePosition(self.playdate, self.position, self.speed)
-    if (self.sprite.x ~= self.position.x or self.sprite.y ~= self.position.y) then
-        self.sprite:moveTo(self.position.x, self.position.y)
+    if (self.isDropping or pressedDropButton(self.playdate)) then
+        self.isDropping = true
+        self.position = calculateDropLuggageTick(self.position, self.speed, self.bottomOfBeltPosition)
     end
+
+    self.position = handleMovementKeys(self.playdate, self.position, self.speed)
+
+    updateSpriteRotation(self.sprite, self.rotation)
+    updateSpritePosition(self.sprite, self.position)
 end
 
 function Player:cleanup()

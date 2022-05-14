@@ -21,11 +21,15 @@ end
 function PlaydateGraphicsSpriteMock:setRotation(rotation)
     local params = {rotation = rotation}
     self.setRotationCalledWith = TestHelpers.addCapturedParams(self.setRotationCalledWith, params)
+
+    self.rotation = rotation
 end
 
 function PlaydateGraphicsSpriteMock:setScale(scale)
     local params = {scale = scale}
     self.setScaleCalledWith = TestHelpers.addCapturedParams(self.setScaleCalledWith, params)
+
+    self.scale = scale
 end
 
 function PlaydateGraphicsSpriteMock:add()

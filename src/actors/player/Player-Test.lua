@@ -3,6 +3,7 @@ import "test-setup/UnitTest"
 local expectedStartingSpeed = 5
 local expectedStartingX = 200
 local expectedStartingY = 60
+local expectedStartingRotation = 0
 
 local acceleratedSpeed = 20
 
@@ -36,7 +37,7 @@ TestPlayerClass_Init = {
 }
 
 TestPlayerClass_LogicLoopNoInteraction = {
-    testShouldMovePlayerUpWhenUpButtonPressed = function()
+    testShouldNotChangeStartingState = function()
         createTarget()
 
         target:logicLoop()
@@ -47,13 +48,13 @@ TestPlayerClass_LogicLoopNoInteraction = {
             y = expectedStartingY
         })
         luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = 0
+            rotation = expectedStartingRotation
         })
     end,
 }
 
 TestPlayerClass_LogicLoopCranked = {
-    testShouldMovePlayerUpWhenUpButtonPressed = function()
+    testShouldRotateWhenCranked = function()
         createTarget()
 
         playdateMock.simulateCrankChange(0.3)
@@ -65,7 +66,40 @@ TestPlayerClass_LogicLoopCranked = {
             y = expectedStartingY
         })
         luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = 0.3
+            rotation = expectedStartingRotation + 0.3
+        })
+    end,
+}
+
+TestPlayerClass_LogicLoopDropping = {
+    testShouldMovePlayerWhenAButtonPressed = function()
+        createTarget()
+
+        playdateMock.simulateButtonPress(playdate.kButtonA)
+        target:logicLoop()
+
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedStartingX,
+            y = expectedStartingY + expectedStartingSpeed
+        })
+        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
+            rotation = 0
+        })
+    end,
+    testShouldMovePlayerWhenAButtonPressed = function()
+        createTarget({
+            speed = 500
+        })
+
+        playdateMock.simulateButtonPress(playdate.kButtonA)
+        target:logicLoop()
+
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedStartingX,
+            y = target.bottomOfBeltPosition
+        })
+        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
+            rotation = 0
         })
     end,
 }

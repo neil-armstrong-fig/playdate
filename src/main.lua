@@ -16,7 +16,7 @@ import "render-loop/RenderLoop"
 
 local graphics <const> = playdate.graphics
 
-local player = Player(graphics, {speed = 1})
+local player = Player(graphics, {speed = 5})
 local luggageQueueItem = LuggageQueueItem(graphics)
 local background = Background(graphics)
 
