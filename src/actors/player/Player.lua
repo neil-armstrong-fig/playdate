@@ -19,6 +19,7 @@ function Player:init(graphics, config)
         x = 200,
         y = 120
     }
+    self.rotation = 0
 
     self.sprite = createPlayerImage(graphics, self.position)
     self.speed = 5
@@ -49,7 +50,12 @@ function Player:logicLoop()
         self.position.x = self.position.x + self.speed
     end
 
-    self.sprite:moveTo(self.position.x, self.position.y)
+    self.rotation = self.rotation + 1
+    self.sprite:setRotation(self.rotation)
+
+    if (self.sprite.x ~= self.position.x or self.sprite.y ~= self.position.y) then
+        self.sprite:moveTo(self.position.x, self.position.y)
+    end
 end
 
 function Player:cleanup()

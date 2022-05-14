@@ -7,7 +7,6 @@ local function loadImageFile(graphics, fileName)
     return image
 end
 
-
 ImageLoading = {}
 
 function ImageLoading.loadPlayerImage(graphics)

@@ -27,11 +27,28 @@ TestPlayerClass_Init = {
 
         luaunit.assertEquals(target.speed, expectedStartingSpeed)
         luaunit.assertNotIsNil(spriteMock)
-        luaunit.assertEquals(spriteMock.wasMovedTo[1], {
+        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
             x = 200,
             y = 120
         })
         luaunit.assertEquals(spriteMock.addWasCalled, true)
+    end,
+}
+
+TestPlayerClass_LogicLoopNoInteraction = {
+    testShouldMovePlayerUpWhenUpButtonPressed = function()
+        createTarget()
+
+        target:logicLoop()
+
+        luaunit.assertIsNil(spriteMock.moveToCalledWith[2])
+        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
+            x = expectedStartingX,
+            y = expectedStartingY
+        })
+        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
+            rotation = 1
+        })
     end,
 }
 
@@ -44,9 +61,9 @@ TestPlayerClass_LogicLoopUp = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY - expectedStartingSpeed
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 200,
-            y = 115
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -59,9 +76,9 @@ TestPlayerClass_LogicLoopUp = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY - acceleratedSpeed
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 200,
-            y = 100
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -77,9 +94,9 @@ TestPlayerClass_LogicLoopDown = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY + expectedStartingSpeed
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 200,
-            y = 125
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -92,9 +109,9 @@ TestPlayerClass_LogicLoopDown = {
 
         local expectedX = expectedStartingX
         local expectedY = expectedStartingY + acceleratedSpeed
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 200,
-            y = 140
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -110,9 +127,9 @@ TestPlayerClass_LogicLoopRight = {
 
         local expectedX = expectedStartingX + expectedStartingSpeed
         local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 205,
-            y = 120
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -125,9 +142,9 @@ TestPlayerClass_LogicLoopRight = {
 
         local expectedX = expectedStartingX + acceleratedSpeed
         local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 220,
-            y = 120
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -143,9 +160,9 @@ TestPlayerClass_LogicLoopLeft = {
 
         local expectedX = expectedStartingX - expectedStartingSpeed
         local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 195,
-            y = 120
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
@@ -158,9 +175,9 @@ TestPlayerClass_LogicLoopLeft = {
 
         local expectedX = expectedStartingX - acceleratedSpeed
         local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.wasMovedTo[2], {
-            x = 180,
-            y = 120
+        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+            x = expectedX,
+            y = expectedY
         })
         luaunit.assertEquals(target.position.x, expectedX)
         luaunit.assertEquals(target.position.y, expectedY)
