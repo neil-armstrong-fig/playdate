@@ -9,14 +9,10 @@ end
 
 ImageLoading = {}
 
-function ImageLoading.loadPlayerImage(graphics)
-    return loadImageFile(graphics, "suitcase")
-end
-
 function ImageLoading.loadBackgroundImage(graphics)
-    return loadImageFile(graphics, "background")
+    return loadImageFile(graphics, "background/full-background")
 end
 
 function ImageLoading.loadLuggageQueueItemImage(graphics)
-    return loadImageFile(graphics, "suitcase")
+    return loadImageFile(graphics, "luggage/suitcase")
 end
