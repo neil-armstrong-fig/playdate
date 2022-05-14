@@ -42,7 +42,7 @@ TestGearsClass = {
             y = 105,
         })
         luaunit.assertEquals(bigGear.addWasCalled, true)
-    end
+    end,
 }
 
 TestGearsClass_Update = {
@@ -52,8 +52,8 @@ TestGearsClass_Update = {
 
         target:update()
 
-        luaunit.assertEquals(target.firstSmallGear.rotation, 2.4)
-        luaunit.assertEquals(target.secondSmallGear.rotation, -2.4)
-        luaunit.assertEquals(target.bigGear.rotation, 2.4)
-    end
+        luaunit.assertEquals(target.firstSmallGear.rotation, -2.4)
+        luaunit.assertEquals(target.secondSmallGear.rotation, 2.4)
+        luaunit.assertEquals(target.bigGear.rotation, -2.4)
+    end,
 }

@@ -35,9 +35,9 @@ function Gears:update()
     local crankChange = self.playdate.getCrankChange()
     if (crankChange ~= 0) then
         printTable(self.firstSmallGear)
-        self:_updateRotation(self.firstSmallGear, crankChange)
-        self:_updateRotation(self.secondSmallGear, -crankChange)
-        self:_updateRotation(self.bigGear, crankChange)
+        self:_updateRotation(self.firstSmallGear, -crankChange)
+        self:_updateRotation(self.secondSmallGear, crankChange)
+        self:_updateRotation(self.bigGear, -crankChange)
     end
 end
 
