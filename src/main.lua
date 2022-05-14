@@ -7,6 +7,7 @@ import "utils/Table"
 import "utils/Lists"
 
 import "actors/player/Player"
+import "actors/luggage-queue-item/LuggageQueueItem"
 import "actors/background/Background"
 
 import "state/GameState"
@@ -16,6 +17,7 @@ import "render-loop/RenderLoop"
 local graphics <const> = playdate.graphics
 
 local player = Player(graphics, {speed = 1})
+local luggageQueueItem = LuggageQueueItem(graphics)
 local background = Background(graphics)
 
 local renderLoop = RenderLoop(graphics)

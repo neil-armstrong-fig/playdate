@@ -3,17 +3,18 @@ class("PlaydateGraphicsSpriteMock").extends()
 function PlaydateGraphicsSpriteMock:init()
     self.moveToCalledWith = nil
     self.setRotationCalledWith = nil
+    self.setScaleCalledWith = nil
     self.addWasCalled = false
     self.removeWasCalled = false
 end
 
 function PlaydateGraphicsSpriteMock:moveTo(x, y)
+    local params = {x = x, y = y}
+
     if (self.moveToCalledWith == nil) then
-        self.moveToCalledWith = {
-            {x = x, y = y}
-        }
+        self.moveToCalledWith = {params}
     else
-        table.insert(self.moveToCalledWith, {x = x, y = y})
+        table.insert(self.moveToCalledWith, params)
     end
 
     self.x = x
@@ -21,12 +22,22 @@ function PlaydateGraphicsSpriteMock:moveTo(x, y)
 end
 
 function PlaydateGraphicsSpriteMock:setRotation(rotation)
+    local params = {rotation = rotation}
+
     if (self.setRotationCalledWith == nil) then
-        self.setRotationCalledWith = {
-            {rotation = rotation}
-        }
+        self.setRotationCalledWith = {params}
     else
-        table.insert(self.setRotationCalledWith, {x = x, y = y})
+        table.insert(self.setRotationCalledWith, params)
+    end
+end
+
+function PlaydateGraphicsSpriteMock:setScale(scale)
+    local params = {scale = scale}
+
+    if (self.setScaleCalledWith == nil) then
+        self.setScaleCalledWith = {params}
+    else
+        table.insert(self.setScaleCalledWith, params)
     end
 end
 

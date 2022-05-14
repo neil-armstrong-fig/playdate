@@ -12,7 +12,7 @@ local function createTarget()
 end
 
 TestBackgroundClass = {
-    testShouldSetupBackgroundImage = function()
+    testShouldInit = function()
         createTarget()
 
         luaunit.assertNotIsNil(playdateGraphicsMock.sprite.setBackgroundDrawingCallbackCalledWith())

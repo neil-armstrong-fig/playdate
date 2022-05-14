@@ -2,7 +2,7 @@ import "./test-setup/UnitTest"
 
 local expectedStartingSpeed = 5
 local expectedStartingX = 200
-local expectedStartingY = 120
+local expectedStartingY = 60
 
 local acceleratedSpeed = 20
 
@@ -22,14 +22,14 @@ local function createTarget(config)
 end
 
 TestPlayerClass_Init = {
-    testShouldInitPlayer = function()
+    testShouldInit = function()
         createTarget()
 
         luaunit.assertEquals(target.speed, expectedStartingSpeed)
         luaunit.assertNotIsNil(spriteMock)
         luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
-            x = 200,
-            y = 120
+            x = expectedStartingX,
+            y = expectedStartingY
         })
         luaunit.assertEquals(spriteMock.addWasCalled, true)
     end,

@@ -6,7 +6,7 @@ TestGameStateClass_PlayerPosition = {
         local gameState = GameState(Player_Builder.buildTestPlayer())
 
         luaunit.assertEquals(gameState.playerPosition.x, 200)
-        luaunit.assertEquals(gameState.playerPosition.y, 120)
+        luaunit.assertEquals(gameState.playerPosition.y, 60)
     end,
     testShouldFailAssertIfIsNil = function()
         local caughtError

@@ -18,7 +18,7 @@ TestUiDrawClass = {
 
         local actual = playdateGraphicsMock.drawTextCalledWith()
         luaunit.assertEquals(actual[1], {
-            text = "Player: (200, 120)",
+            text = "Player: (200, 60)",
             x = 2,
             y = 220
         })

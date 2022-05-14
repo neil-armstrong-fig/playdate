@@ -1,14 +1,11 @@
 import "./images/ImageLoading"
 
-local function createPlayerImage(graphics, startingPosition)
-    -- Set up the player sprite.
-    -- The :setCenter() call specifies that the sprite will be anchored at its center.
-    -- The :moveTo() call moves our sprite to the center of the display.
-    local playerSprite = graphics.sprite.new(ImageLoading.loadPlayerImage(graphics))
-    playerSprite:moveTo(startingPosition.x, startingPosition.y) -- this is where the center of the sprite is placed;
-    playerSprite:add() -- This is critical!
+local function createImage(graphics, startingPosition)
+    local sprite = graphics.sprite.new(ImageLoading.loadPlayerImage(graphics))
+    sprite:moveTo(startingPosition.x, startingPosition.y)
+    sprite:add()
 
-    return playerSprite
+    return sprite
 end
 
 class("Player").extends()
@@ -17,11 +14,11 @@ function Player:init(graphics, config)
     self.playdate = playdate
     self.position = {
         x = 200,
-        y = 120
+        y = 60
     }
     self.rotation = 0
 
-    self.sprite = createPlayerImage(graphics, self.position)
+    self.sprite = createImage(graphics, self.position)
     self.speed = 5
 
     if (config == nil) then

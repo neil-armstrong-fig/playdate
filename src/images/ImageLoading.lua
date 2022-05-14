@@ -16,3 +16,7 @@ end
 function ImageLoading.loadBackgroundImage(graphics)
     return loadImageFile(graphics, "background")
 end
+
+function ImageLoading.loadLuggageQueueItemImage(graphics)
+    return loadImageFile(graphics, "suitcase")
+end
