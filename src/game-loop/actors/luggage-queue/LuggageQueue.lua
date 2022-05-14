@@ -65,10 +65,10 @@ function LuggageQueue:_addNewLuggage()
     self.size = self.size + 1
 end
 
-function LuggageQueue:logicLoop()
+function LuggageQueue:update()
     self:_forEachItem(
             function(item)
-                item:logicLoop()
+                item:update()
             end
     )
 end

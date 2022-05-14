@@ -35,11 +35,11 @@ TestPlayerClass_Init = {
     end,
 }
 
-TestPlayerClass_LogicLoopNoInteraction = {
+TestPlayerClass_UpdateNoInteraction = {
     testShouldNotChangeStartingState = function()
         createTarget()
 
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
@@ -54,19 +54,19 @@ TestPlayerClass_Luggage = {
         createTarget()
         local differentLuggage = Luggage_Builder.buildTestLuggage(playdateGraphicsMock)
 
-        target:logicLoop(luggage)
-        target:logicLoop(differentLuggage)
+        target:update(luggage)
+        target:update(differentLuggage)
 
         luaunit.assertEquals(target.luggage, differentLuggage)
     end,
 }
 
-TestPlayerClass_LogicLoopCrank = {
+TestPlayerClass_UpdateCrank = {
     testShouldRotateWhenCrankedForwards = function()
         createTarget()
 
         playdateMock.simulateCrankChange(0.3)
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
@@ -78,7 +78,7 @@ TestPlayerClass_LogicLoopCrank = {
         createTarget()
 
         playdateMock.simulateCrankChange(-4)
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
@@ -88,12 +88,12 @@ TestPlayerClass_LogicLoopCrank = {
     end,
 }
 
-TestPlayerClass_LogicLoopDropping = {
+TestPlayerClass_UpdateDropping = {
     testShouldMovePlayerWhenAButtonPressed = function()
         createTarget()
 
         playdateMock.simulateButtonPress(playdate.kButtonA)
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
@@ -108,7 +108,7 @@ TestPlayerClass_LogicLoopDropping = {
         })
 
         playdateMock.simulateButtonPress(playdate.kButtonA)
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,

@@ -21,7 +21,7 @@ function Belt:init(config)
     end
 end
 
-function Belt:logicLoop(luggage)
+function Belt:update(luggage)
     if (luggage.isPlayerControlDone) then
         self:_addLuggage(luggage)
     end
@@ -35,7 +35,7 @@ function Belt:logicLoop(luggage)
                     item.position.x = -40
                 end
 
-                item:logicLoop()
+                item:update()
             end
     )
 end

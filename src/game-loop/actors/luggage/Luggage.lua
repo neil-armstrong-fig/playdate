@@ -17,7 +17,7 @@ function Luggage:endPlayerControl()
     self.isPlayerControlDone = true
 end
 
-function Luggage:logicLoop()
+function Luggage:update()
     self:_updateSpriteRotation()
     self:_updateSpritePosition()
 end

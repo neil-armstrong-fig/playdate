@@ -54,19 +54,19 @@ TestLuggageQueueItemClass_LogicLoop = {
     testShouldNotUpdateSpriteIfNoChange = function()
         createTarget()
 
-        target:logicLoop()
+        target:update()
 
         luaunit.assertIsNil(spriteMock.moveToCalledWith[2])
         luaunit.assertIsNil(spriteMock.setRotationCalledWith)
     end,
     testShouldUpdateSpritePositionWhenChanged = function()
         createTarget()
-
         target.position = {
            x = 10,
            y = 20
         }
-        target:logicLoop()
+
+        target:update()
 
         luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
             x = 10,
@@ -75,9 +75,9 @@ TestLuggageQueueItemClass_LogicLoop = {
     end,
     testShouldUpdateSpriteRotationWhenChanged = function()
         createTarget()
-
         target.rotation = 30
-        target:logicLoop()
+
+        target:update()
 
         luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
             rotation = 30

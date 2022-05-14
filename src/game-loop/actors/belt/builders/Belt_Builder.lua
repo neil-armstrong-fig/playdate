@@ -11,8 +11,8 @@ Belt_Builder = {
         luggage1.isPlayerControlDone = true
         luggage2.isPlayerControlDone = true
 
-        belt:logicLoop(luggage1)
-        belt:logicLoop(luggage2)
+        belt:update(luggage1)
+        belt:update(luggage2)
 
         return belt
     end

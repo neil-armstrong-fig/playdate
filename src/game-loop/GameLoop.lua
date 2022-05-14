@@ -14,9 +14,9 @@ end
 function GameLoop:update()
     local activeLuggage = self.luggageQueue:getActiveLuggage()
 
-    self.player:logicLoop(activeLuggage)
-    self.luggageQueue:logicLoop()
-    self.belt:logicLoop(activeLuggage)
+    self.player:update(activeLuggage)
+    self.luggageQueue:update()
+    self.belt:update(activeLuggage)
 
     return GameState(
             self.player,

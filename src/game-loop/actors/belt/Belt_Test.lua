@@ -27,12 +27,12 @@ TestBeltClass = {
     end,
 }
 
-TestBeltClass_LogicLoop = {
+TestBeltClass_Update = {
     testShouldNotAddLuggageIfPlayIsNotDoneControllingItYet = function()
         createTarget()
         local luggage = Luggage_Builder.buildTestLuggage()
 
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(target.size, 0)
     end,
@@ -41,7 +41,7 @@ TestBeltClass_LogicLoop = {
         local luggage = Luggage_Builder.buildTestLuggage()
         luggage.isPlayerControlDone = true
 
-        target:logicLoop(luggage)
+        target:update(luggage)
 
         luaunit.assertEquals(target.size, 1)
         luaunit.assertEquals(target.items[1], luggage)
@@ -55,9 +55,9 @@ TestBeltClass_LogicLoop = {
             y = startingY
         })
 
-        target:logicLoop(luggage)
+        target:update(luggage)
         luaunit.assertEquals(luggage.position.x, startingX + speed)
-        target:logicLoop(Luggage_Builder.buildTestLuggage())
+        target:update(Luggage_Builder.buildTestLuggage())
         luaunit.assertEquals(luggage.position.x, startingX + speed + speed)
 
     end,
@@ -69,13 +69,13 @@ TestBeltClass_LogicLoop = {
         local luggage = Luggage_Builder.buildTestLuggage()
         luggage.isPlayerControlDone = true
 
-        target:logicLoop(luggage)
+        target:update(luggage)
         luaunit.assertEquals(luggage.position.x, startingX + 10)
-        target:logicLoop(Luggage_Builder.buildTestLuggage())
+        target:update(Luggage_Builder.buildTestLuggage())
         luaunit.assertEquals(luggage.position.x, startingX + 20)
-        target:logicLoop(Luggage_Builder.buildTestLuggage())
+        target:update(Luggage_Builder.buildTestLuggage())
         luaunit.assertEquals(luggage.position.x, -40)
-        target:logicLoop(Luggage_Builder.buildTestLuggage())
+        target:update(Luggage_Builder.buildTestLuggage())
         luaunit.assertEquals(luggage.position.x, -30)
     end,
 }

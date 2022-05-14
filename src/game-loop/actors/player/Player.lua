@@ -17,7 +17,7 @@ function Player:init(config)
     end
 end
 
-function Player:logicLoop(luggage)
+function Player:update(luggage)
     if (self:_isNewLuggage(luggage)) then
         self:_controlNewLuggage(luggage)
     end
