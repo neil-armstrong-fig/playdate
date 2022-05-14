@@ -1,5 +1,3 @@
-import "test-setup/UnitTest"
-
 local expectedStartingSpeed = 5
 local expectedStartingX = 200
 local expectedStartingY = 60

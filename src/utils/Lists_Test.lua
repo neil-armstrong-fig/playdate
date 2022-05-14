@@ -1,5 +1,3 @@
-import "test-setup/UnitTest"
-
 local function createTestList()
     return {"1", "2", "3"}
 end

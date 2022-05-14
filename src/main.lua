@@ -3,6 +3,8 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
+import "test-setup/UnitTest"
+
 import "utils/Table"
 import "utils/Lists"
 

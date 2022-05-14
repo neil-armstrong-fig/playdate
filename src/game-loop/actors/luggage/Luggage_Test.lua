@@ -1,5 +1,3 @@
-import "test-setup/UnitTest"
-
 local expectedStartingX = 285
 local expectedStartingY = 15
 

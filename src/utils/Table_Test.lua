@@ -1,5 +1,3 @@
-import "test-setup/UnitTest"
-
 TestTable_Length = {
     testShouldReturnLengthOfTable = function()
         luaunit.assertEquals(table.length({test = "value"}), 1)

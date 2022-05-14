@@ -1,5 +1,3 @@
-import "test-setup/UnitTest"
-
 local playdateGraphicsMock
 local imageMock
 
