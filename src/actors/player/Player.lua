@@ -35,24 +35,39 @@ function Player:init(graphics, config)
     end
 end
 
+local function updatePlayerPosition(playdate, originalPosition, speed)
+    local x = originalPosition.x
+    local y = originalPosition.y
+
+    if playdate.buttonIsPressed(playdate.kButtonUp) then
+        y = y - speed
+    end
+    if playdate.buttonIsPressed(playdate.kButtonDown) then
+        y = y + speed
+    end
+    if playdate.buttonIsPressed(playdate.kButtonLeft) then
+        x = x - speed
+    end
+    if playdate.buttonIsPressed(playdate.kButtonRight) then
+        x = x + speed
+    end
+
+    if (x ~= originalPosition.x or y ~= originalPosition.y) then
+        return {x = x, y = y}
+    else
+        return originalPosition
+    end
+end
+
+local function updateRotation(originalRotation)
+    return originalRotation + 1
+end
+
 function Player:logicLoop()
-    if self.playdate.buttonIsPressed(playdate.kButtonUp) then
-        self.position.y = self.position.y - self.speed
-    end
-    if self.playdate.buttonIsPressed(playdate.kButtonDown) then
-        self.position.y = self.position.y + self.speed
-    end
-
-    if self.playdate.buttonIsPressed(playdate.kButtonLeft) then
-        self.position.x = self.position.x - self.speed
-    end
-    if self.playdate.buttonIsPressed(playdate.kButtonRight) then
-        self.position.x = self.position.x + self.speed
-    end
-
-    self.rotation = self.rotation + 1
+    self.rotation = updateRotation(self.rotation)
     self.sprite:setRotation(self.rotation)
 
+    self.position = updatePlayerPosition(self.playdate, self.position, self.speed)
     if (self.sprite.x ~= self.position.x or self.sprite.y ~= self.position.y) then
         self.sprite:moveTo(self.position.x, self.position.y)
     end
