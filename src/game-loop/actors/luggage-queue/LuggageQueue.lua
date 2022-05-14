@@ -1,5 +1,5 @@
 import "utils/Lists"
-import "actors/luggage/Luggage"
+import "game-loop/actors/luggage/Luggage"
 
 class("LuggageQueue").extends()
 
@@ -35,7 +35,7 @@ function LuggageQueue:init(graphics)
     self.size = 3
 end
 
-function LuggageQueue:nextLuggage()
+function LuggageQueue:getActiveLuggage()
     local firstInQueue = self.items[1]
     if (firstInQueue.isPlayerControlDone == false) then
         return firstInQueue

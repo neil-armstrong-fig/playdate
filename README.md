@@ -37,7 +37,7 @@ Doesn't play nice with the playdate's custom lua stuff, so just going to leave i
 ## Tests
 Tests run at runtime on the simulator, so can mock via injection
 
-1. Create test file `<FileToTest>-Test.lua` with `FileToTest` being the name of the file you want to test
+1. Create test file `<FileToTest>_Test.lua` with `FileToTest` being the name of the file you want to test
 2. Import this file at the bottom of the file you want to test `import "<FileToTest>-Test`
 3. Create test file following existing format
    1. Make sure all resources are cleaned up!!!
@@ -49,5 +49,5 @@ Tests run at runtime on the simulator, so can mock via injection
 ### Builders
 All good tests need some builders to prevent repeating data models, and if the models change then only one place needs to be updated
 - Add a `builders` folder to the class you want to create a builder for
-- Use the postfix `<ClassName>-Builder.lua` to identify them
+- Use the postfix `<ClassName>_Builder.lua` to identify them
 - Ideally these should use the mocks as well to make testing with them easier

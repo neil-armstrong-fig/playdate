@@ -6,7 +6,7 @@ import "CoreLibs/timer"
 import "utils/Table"
 import "utils/Lists"
 
-import "actors/background/Background"
+import "background/Background"
 
 import "game-loop/GameLoop"
 import "render-loop/RenderLoop"

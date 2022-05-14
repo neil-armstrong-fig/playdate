@@ -1,5 +1,5 @@
-import "mocks/PlaydateGraphicsImage-Mock"
-import "mocks/PlaydateGraphicsSprite-Mock"
+import "mocks/PlaydateGraphicsImage_Mock"
+import "mocks/PlaydateGraphicsSprite_Mock"
 import "test-setup/mocks/helpers/TestHelpers"
 
 PlaydateGraphicsMock = {}

@@ -12,4 +12,4 @@ function UiDrawer:drawUi(gameState)
     self.drawText(numberOnBeltText, 2, 200)
 end
 
-import "UiDrawer-Test"
+import "UiDrawer_Test"

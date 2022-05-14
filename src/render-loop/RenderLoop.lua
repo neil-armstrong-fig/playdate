@@ -27,4 +27,4 @@ function RenderLoop:update(gameState)
     self.playdate.timer.updateTimers()
 end
 
-import "RenderLoop-Test"
+import "RenderLoop_Test"

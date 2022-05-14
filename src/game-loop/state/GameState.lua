@@ -11,4 +11,4 @@ function GameState:init(player, belt)
     assert(self.numberOfItemsOnBelt, "Belt size was nil")
 end
 
-import "GameState-Test"
+import "GameState_Test"

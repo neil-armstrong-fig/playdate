@@ -23,4 +23,4 @@ function Background:init(graphics)
     createBackgroundImage(graphics)
 end
 
-import "Background-Test"
+import "Background_Test"

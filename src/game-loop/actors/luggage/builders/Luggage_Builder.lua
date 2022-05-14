@@ -1,4 +1,4 @@
-import "actors/luggage/Luggage"
+import "game-loop/actors/luggage/Luggage"
 
 Luggage_Builder = {
     buildTestLuggage = function(graphics)

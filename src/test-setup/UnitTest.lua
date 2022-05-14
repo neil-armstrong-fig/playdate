@@ -1,8 +1,8 @@
 import "PlaydateLuaUnitFix"
 import "luaunit"
 
-import "mocks/playdate-mock/Playdate-Mock"
-import "mocks/playdate-graphics-mock/PlaydateGraphics-Mock"
+import "mocks/playdate-mock/Playdate_Mock"
+import "mocks/playdate-graphics-mock/PlaydateGraphics_Mock"
 
 local logTestNames = false
 luaunit.SUPER_QUIET_LOGS = logTestNames

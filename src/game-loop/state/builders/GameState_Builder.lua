@@ -1,5 +1,5 @@
-import "actors/player/builders/Player_Builder"
-import "actors/belt/builders/Belt_Builder"
+import "game-loop/actors/player/builders/Player_Builder"
+import "game-loop/actors/belt/builders/Belt_Builder"
 
 GameState_Builder = {
     buildTestGameState = function()

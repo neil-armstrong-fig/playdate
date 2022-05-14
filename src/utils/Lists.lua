@@ -76,4 +76,4 @@ function lists.toString(list)
     return asString .. "]"
 end
 
-import "Lists-Test"
+import "Lists_Test"

@@ -12,12 +12,11 @@ function GameLoop:init(graphics)
 end
 
 function GameLoop:update()
-    local firstLuggage = self.luggageQueue:nextLuggage()
+    local activeLuggage = self.luggageQueue:getActiveLuggage()
 
-    self.player:logicLoop(firstLuggage)
+    self.player:logicLoop(activeLuggage)
     self.luggageQueue:logicLoop()
-
-    self.belt:logicLoop(firstLuggage)
+    self.belt:logicLoop(activeLuggage)
 
     return GameState(
             self.player,

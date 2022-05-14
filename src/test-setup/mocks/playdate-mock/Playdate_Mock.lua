@@ -1,4 +1,4 @@
-import "mocks/PlaydateTimer-Mock"
+import "mocks/PlaydateTimer_Mock"
 
 local PlaydateMock = {
     kButtonUp = playdate.kButtonUp,

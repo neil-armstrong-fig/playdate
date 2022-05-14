@@ -1,5 +1,5 @@
-import "actors/belt/Belt"
-import "actors/luggage/builders/Luggage_Builder"
+import "game-loop/actors/belt/Belt"
+import "game-loop/actors/luggage/builders/Luggage_Builder"
 
 Belt_Builder = {
     buildTestBelt = function()

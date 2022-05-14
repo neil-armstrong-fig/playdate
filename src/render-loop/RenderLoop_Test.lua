@@ -1,6 +1,6 @@
 import "test-setup/UnitTest"
-import "ui/mocks/UiDrawer-Mock"
-import "state/builders/GameState-Builder"
+import "ui/mocks/UiDrawer_Mock"
+import "game-loop/state/builders/GameState_Builder"
 
 local playdateGraphicsMock
 local playdateMock

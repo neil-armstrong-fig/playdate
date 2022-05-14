@@ -34,4 +34,4 @@ function Luggage:_updateSpritePosition(sprite, newPosition)
     end
 end
 
-import "Luggage-Test"
+import "Luggage_Test"

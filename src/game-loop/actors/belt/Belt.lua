@@ -1,5 +1,5 @@
 import "utils/Lists"
-import "actors/luggage/Luggage"
+import "game-loop/actors/luggage/Luggage"
 
 class("Belt").extends()
 

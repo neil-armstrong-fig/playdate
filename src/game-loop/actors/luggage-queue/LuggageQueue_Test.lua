@@ -42,7 +42,7 @@ testLuggageQueueClass_NextLuggage = {
     testShouldProduceNextLuggageInQueue = function()
         createTarget()
 
-        local result = target:nextLuggage()
+        local result = target:getActiveLuggage()
 
         luaunit.assertEquals(target.size, 3)
         luaunit.assertEquals(result, firstItem)
@@ -51,7 +51,7 @@ testLuggageQueueClass_NextLuggage = {
         createTarget()
         firstItem.isPlayerControlDone = true
 
-        local result = target:nextLuggage()
+        local result = target:getActiveLuggage()
 
         luaunit.assertEquals(target.size, 3)
         luaunit.assertEquals(result, target.items[1])

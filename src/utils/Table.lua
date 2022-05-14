@@ -42,4 +42,4 @@ function table.toString(table)
     return toString(table)
 end
 
-import "Table-Test"
+import "Table_Test"
