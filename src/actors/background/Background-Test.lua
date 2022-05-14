@@ -1,4 +1,4 @@
-import "./test-setup/UnitTest"
+import "test-setup/UnitTest"
 
 local playdateGraphicsMock
 local imageMock

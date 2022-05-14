@@ -1,4 +1,4 @@
-import "./images/ImageLoading"
+import "images/ImageLoading"
 
 local function createBackgroundImage(graphics)
     -- We want an environment displayed behind our sprite.

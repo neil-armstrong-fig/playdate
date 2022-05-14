@@ -1,4 +1,4 @@
-import "./test-setup/UnitTest"
+import "test-setup/UnitTest"
 
 local expectedStartingSpeed = 5
 local expectedStartingX = 200

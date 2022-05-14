@@ -1,4 +1,4 @@
-import "./actors/player/builders/Player_Builder"
+import "actors/player/builders/Player_Builder"
 
 GameState_Builder = {
     buildTestGameState = function()

@@ -1,4 +1,4 @@
-import "././helpers/TestHelpers"
+import "test-setup/mocks/helpers/TestHelpers"
 
 class("PlaydateGraphicsSpriteMock").extends()
 

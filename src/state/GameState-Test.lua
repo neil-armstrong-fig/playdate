@@ -1,5 +1,5 @@
-import "./test-setup/UnitTest"
-import "./actors/player/builders/Player_Builder"
+import "test-setup/UnitTest"
+import "actors/player/builders/Player_Builder"
 
 TestGameStateClass_PlayerPosition = {
     testShouldCreateGameStateSuccessfully = function()

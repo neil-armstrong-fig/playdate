@@ -1,4 +1,4 @@
-import "./test-setup/UnitTest"
+import "test-setup/UnitTest"
 
 TestTable_Length = {
     testShouldReturnLengthOfTable = function()

@@ -1,6 +1,6 @@
 import "mocks/PlaydateGraphicsImage-Mock"
 import "mocks/PlaydateGraphicsSprite-Mock"
-import "./helpers/TestHelpers"
+import "test-setup/mocks/helpers/TestHelpers"
 
 PlaydateGraphicsMock = {}
 
@@ -20,12 +20,10 @@ end
 local setClipRectCalledWith
 function PlaydateGraphicsMock.setClipRect(x, y, width, height)
     local params = {
-        {
-            x = x,
-            y = y,
-            width = width,
-            height = height
-        }
+        x = x,
+        y = y,
+        width = width,
+        height = height
     }
     setClipRectCalledWith = TestHelpers.addCapturedParams(setClipRectCalledWith, params)
 end

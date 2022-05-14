@@ -1,5 +1,5 @@
-import "./test-setup/UnitTest"
-import "./state/builders/GameState-Builder"
+import "test-setup/UnitTest"
+import "state/builders/GameState-Builder"
 
 local playdateGraphicsMock
 

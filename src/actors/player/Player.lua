@@ -1,4 +1,4 @@
-import "./images/ImageLoading"
+import "images/ImageLoading"
 
 local function createImage(graphics, startingPosition)
     local sprite = graphics.sprite.new(ImageLoading.loadPlayerImage(graphics))
