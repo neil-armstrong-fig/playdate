@@ -3,6 +3,8 @@ import "test-setup/mocks/helpers/TestHelpers"
 class("PlaydateGraphicsSpriteMock").extends()
 
 function PlaydateGraphicsSpriteMock:init()
+    self.rotation = 0
+
     self.moveToCalledWith = nil
     self.setRotationCalledWith = nil
     self.setScaleCalledWith = nil

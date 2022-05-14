@@ -7,7 +7,8 @@ import "utils/Table"
 import "utils/Lists"
 
 import "actors/player/Player"
-import "actors/luggage-queue-item/LuggageQueueItem"
+import "actors/luggage-queue/LuggageQueue"
+import "actors/belt/Belt"
 import "actors/background/Background"
 
 import "state/GameState"
@@ -16,19 +17,25 @@ import "render-loop/RenderLoop"
 
 local graphics <const> = playdate.graphics
 
-local player = Player(graphics, {speed = 5})
-local luggageQueueItem = LuggageQueueItem(graphics)
+local player = Player({speed = 5})
+local luggageQueue = LuggageQueue(graphics)
+local belt = Belt()
 local background = Background(graphics)
 
 local renderLoop = RenderLoop(graphics)
 
 function playdate.update()
-    player:logicLoop()
+    local firstLuggage = luggageQueue:nextLuggage()
+
+    player:logicLoop(firstLuggage)
+    luggageQueue:logicLoop()
+
+    belt:logicLoop(firstLuggage)
 
     local currentGameState = GameState(
-            player
+            player,
+            belt
     )
-
     renderLoop:update(currentGameState)
 end
 

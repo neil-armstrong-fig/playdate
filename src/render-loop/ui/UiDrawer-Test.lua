@@ -16,11 +16,16 @@ TestUiDrawClass = {
 
         target:drawUi(GameState_Builder.buildTestGameState())
 
-        local actual = playdateGraphicsMock.drawTextCalledWith()
-        luaunit.assertEquals(actual[1], {
+        luaunit.assertEquals(playdateGraphicsMock.drawTextCalledWith()[1], {
             text = "Player: (200, 60)",
             x = 2,
             y = 220
+        })
+
+        luaunit.assertEquals(playdateGraphicsMock.drawTextCalledWith()[2], {
+            text = "Belt: (2)",
+            x = 2,
+            y = 200
         })
     end
 }

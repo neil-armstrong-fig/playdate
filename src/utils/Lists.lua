@@ -26,6 +26,16 @@ function lists.filter(list, filterFunction)
     return newList
 end
 
+function lists.forEach(list, callback)
+    if (list == nil or callback == nil) then
+        return
+    end
+
+    for _, item in pairs(list) do
+        callback(item)
+    end
+end
+
 function lists.find(list, findFunction)
     if (list == nil) then
         return nil

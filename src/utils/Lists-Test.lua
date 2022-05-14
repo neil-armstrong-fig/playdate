@@ -63,6 +63,22 @@ TestLists_Filter = {
     end,
 }
 
+TestLists_ForEach = {
+    testShouldExecuteCallbackForEachElement = function()
+        local numberOfTimesCallbackCalled = 0
+
+        lists.forEach(
+                createTestList(),
+                function(item)
+                    luaunit.assertNotIsNil(item)
+                    numberOfTimesCallbackCalled = numberOfTimesCallbackCalled + 1
+                end
+        )
+
+        luaunit.assertEquals(numberOfTimesCallbackCalled, 3)
+    end,
+}
+
 TestLists_Find = {
     testShouldFindItemIfItExistsInList = function()
         local result = lists.find(

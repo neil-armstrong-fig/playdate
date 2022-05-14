@@ -5,7 +5,7 @@ local expectedStartingX = 200
 local expectedStartingY = 60
 local expectedStartingRotation = 0
 
-local acceleratedSpeed = 20
+local luggage
 
 local playdateGraphicsMock
 local playdateMock
@@ -16,9 +16,10 @@ local target
 local function createTarget(config)
     playdateGraphicsMock = buildPlaydateGraphicsMock()
     playdateMock = buildPlaydateMock()
-    target = Player(playdateGraphicsMock, table.merge(config, {
+    target = Player(table.merge(config, {
         playdateMock = playdateMock
     }))
+    luggage = Luggage_Builder.buildTestLuggage(playdateGraphicsMock)
     spriteMock = playdateGraphicsMock.sprite.generatedMock()
 end
 
@@ -28,7 +29,7 @@ TestPlayerClass_Init = {
 
         luaunit.assertEquals(target.speed, expectedStartingSpeed)
         luaunit.assertNotIsNil(spriteMock)
-        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
+        luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
             y = expectedStartingY
         })
@@ -40,34 +41,52 @@ TestPlayerClass_LogicLoopNoInteraction = {
     testShouldNotChangeStartingState = function()
         createTarget()
 
-        target:logicLoop()
+        target:logicLoop(luggage)
 
-        luaunit.assertIsNil(spriteMock.moveToCalledWith[2])
-        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
+        luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
             y = expectedStartingY
         })
-        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = expectedStartingRotation
-        })
+        luaunit.assertEquals(luggage.rotation, expectedStartingRotation)
     end,
 }
 
-TestPlayerClass_LogicLoopCranked = {
-    testShouldRotateWhenCranked = function()
+TestPlayerClass_Luggage = {
+    testShouldChangeLuggage = function()
+        createTarget()
+        local differentLuggage = Luggage_Builder.buildTestLuggage(playdateGraphicsMock)
+
+        target:logicLoop(luggage)
+        target:logicLoop(differentLuggage)
+
+        luaunit.assertEquals(target.luggage, differentLuggage)
+    end,
+}
+
+TestPlayerClass_LogicLoopCrank = {
+    testShouldRotateWhenCrankedForwards = function()
         createTarget()
 
         playdateMock.simulateCrankChange(0.3)
-        target:logicLoop()
+        target:logicLoop(luggage)
 
-        luaunit.assertIsNil(spriteMock.moveToCalledWith[2])
-        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
+        luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
             y = expectedStartingY
         })
-        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = expectedStartingRotation + 0.3
+        luaunit.assertEquals(luggage.rotation, expectedStartingRotation + 0.3)
+    end,
+    testShouldRotateWhenCrankedBackwards = function()
+        createTarget()
+
+        playdateMock.simulateCrankChange(-4)
+        target:logicLoop(luggage)
+
+        luaunit.assertEquals(luggage.position, {
+            x = expectedStartingX,
+            y = expectedStartingY
         })
+        luaunit.assertEquals(luggage.rotation, expectedStartingRotation - 4)
     end,
 }
 
@@ -76,172 +95,29 @@ TestPlayerClass_LogicLoopDropping = {
         createTarget()
 
         playdateMock.simulateButtonPress(playdate.kButtonA)
-        target:logicLoop()
+        target:logicLoop(luggage)
 
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+        luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
             y = expectedStartingY + expectedStartingSpeed
         })
-        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = 0
-        })
+        luaunit.assertEquals(luggage.rotation, 0)
+        luaunit.assertEquals(target.isDropping, true)
     end,
-    testShouldMovePlayerWhenAButtonPressed = function()
+    testShouldMovePlayerToBottomIfGoneTooFar = function()
         createTarget({
             speed = 500
         })
 
         playdateMock.simulateButtonPress(playdate.kButtonA)
-        target:logicLoop()
+        target:logicLoop(luggage)
 
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+        luaunit.assertEquals(luggage.position, {
             x = expectedStartingX,
             y = target.bottomOfBeltPosition
         })
-        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = 0
-        })
-    end,
-}
-
-TestPlayerClass_LogicLoopUp = {
-    testShouldMovePlayerUpWhenUpButtonPressed = function()
-        createTarget()
-
-        playdateMock.simulateButtonPress(playdate.kButtonUp)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX
-        local expectedY = expectedStartingY - expectedStartingSpeed
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-    testShouldMovePlayerUpAtAcceleratedSpeed = function()
-        createTarget({speed = acceleratedSpeed})
-
-        playdateMock.simulateButtonPress(playdate.kButtonUp)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX
-        local expectedY = expectedStartingY - acceleratedSpeed
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-}
-
-TestPlayerClass_LogicLoopDown = {
-    testShouldMovePlayerDownWhenDownButtonPressed = function()
-        createTarget()
-
-        playdateMock.simulateButtonPress(playdate.kButtonDown)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX
-        local expectedY = expectedStartingY + expectedStartingSpeed
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-    testShouldMovePlayerDownAtAcceleratedSpeed = function()
-        createTarget({speed = acceleratedSpeed})
-
-        playdateMock.simulateButtonPress(playdate.kButtonDown)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX
-        local expectedY = expectedStartingY + acceleratedSpeed
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-}
-
-TestPlayerClass_LogicLoopRight = {
-    testShouldMovePlayerToTheRightWhenRightButtonPressed = function()
-        createTarget()
-
-        playdateMock.simulateButtonPress(playdate.kButtonRight)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX + expectedStartingSpeed
-        local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-    testShouldMovePlayerToTheRightAtAcceleratedSpeed = function()
-        createTarget({speed = acceleratedSpeed})
-
-        playdateMock.simulateButtonPress(playdate.kButtonRight)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX + acceleratedSpeed
-        local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-}
-
-TestPlayerClass_LogicLoopLeft = {
-    testShouldMovePlayerToTheLeftWhenLeftButtonPressed = function()
-        createTarget()
-
-        playdateMock.simulateButtonPress(playdate.kButtonLeft)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX - expectedStartingSpeed
-        local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-    testShouldMovePlayerToTheLeftAtAcceleratedSpeed = function()
-        createTarget({speed = acceleratedSpeed})
-
-        playdateMock.simulateButtonPress(playdate.kButtonLeft)
-        target:logicLoop()
-
-        local expectedX = expectedStartingX - acceleratedSpeed
-        local expectedY = expectedStartingY
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
-            x = expectedX,
-            y = expectedY
-        })
-        luaunit.assertEquals(target.position.x, expectedX)
-        luaunit.assertEquals(target.position.y, expectedY)
-    end,
-}
-
-TestPlayerClass_Cleanup = {
-    testShouldCleanUpSprite = function()
-        createTarget()
-
-        target:cleanup()
-
-        luaunit.assertEquals(spriteMock.removeWasCalled, true)
+        luaunit.assertEquals(luggage.rotation, 0)
+        luaunit.assertEquals(luggage.isPlayerControlDone, true)
+        luaunit.assertEquals(target.isDropping, false)
     end,
 }

@@ -1,7 +1,12 @@
+import "actors/luggage/builders/Luggage_Builder"
+
 Player_Builder = {
     buildTestPlayer = function()
-        return Player(buildPlaydateGraphicsMock(), {
+        local player = Player(buildPlaydateGraphicsMock(), {
             playdateMock = buildPlaydateMock()
         })
+
+        player.luggage = Luggage_Builder.buildTestLuggage()
+        return player
     end
 }

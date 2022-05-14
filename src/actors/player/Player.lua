@@ -1,26 +1,10 @@
-import "images/ImageLoading"
-
-local function createImage(graphics, startingPosition)
-    local sprite = graphics.sprite.new(ImageLoading.loadPlayerImage(graphics))
-    sprite:moveTo(startingPosition.x, startingPosition.y)
-    sprite:add()
-
-    return sprite
-end
-
 class("Player").extends()
 
-function Player:init(graphics, config)
+function Player:init(config)
     self.playdate = playdate
-    self.position = {
-        x = 200,
-        y = 60
-    }
     self.rotation = 0
     self.speed = 5
     self.bottomOfBeltPosition = 200
-
-    self.sprite = createImage(graphics, self.position)
 
     if (config == nil) then
         return
@@ -33,91 +17,55 @@ function Player:init(graphics, config)
     end
 end
 
-local function updateRotation(playdate, originalRotation)
-    local crankChange = playdate.getCrankChange()
-    if (crankChange == 0.0) then
-        return originalRotation
+function Player:logicLoop(luggage)
+    if (self:_isNewLuggage(luggage)) then
+        self:_controlNewLuggage(luggage)
     end
 
-    return originalRotation + crankChange
-end
+    self:_updateRotation()
 
-local function handleMovementKeys(playdate, originalPosition, speed)
-    local x = originalPosition.x
-    local y = originalPosition.y
-
-    if playdate.buttonIsPressed(playdate.kButtonUp) then
-        y = y - speed
-    end
-    if playdate.buttonIsPressed(playdate.kButtonDown) then
-        y = y + speed
-    end
-    if playdate.buttonIsPressed(playdate.kButtonLeft) then
-        x = x - speed
-    end
-    if playdate.buttonIsPressed(playdate.kButtonRight) then
-        x = x + speed
-    end
-
-    if (x ~= originalPosition.x or y ~= originalPosition.y) then
-        return {x = x, y = y}
-    else
-        return originalPosition
+    if (self:_shouldDrop()) then
+        self:_handleDrop()
     end
 end
 
-local function pressedDropButton(playdate)
-    return playdate.buttonIsPressed(playdate.kButtonA)
+function Player:_isNewLuggage(luggage)
+    return self.luggage ~= luggage
 end
 
-local function calculateDropLuggageTick(currentPosition, speed, bottomOfBeltPosition)
-    if (currentPosition.y == bottomOfBeltPosition) then
-        return currentPosition
-    end
-
-    local newY = currentPosition.y + speed
-
-    if (newY > bottomOfBeltPosition) then
-        return {
-            x = currentPosition.x,
-            y = bottomOfBeltPosition
-        }
-    end
-
-    return {
-        x = currentPosition.x,
-        y = newY
+function Player:_controlNewLuggage(luggage)
+    self.luggage = luggage
+    self.luggage:startPlayerControl()
+    self.luggage.position = {
+        x = 200,
+        y = 60
     }
 end
 
-local function updateSpriteRotation(sprite, newRotation)
-    if (sprite.rotation ~= newRotation) then
-        sprite:setRotation(newRotation)
-    end
-end
+function Player:_updateRotation()
+    local originalRotation = self.luggage.rotation
 
-local function updateSpritePosition(sprite, newPosition)
-    if (sprite.x ~= newPosition.x or sprite.y ~= newPosition.y) then
-        sprite:moveTo(newPosition.x, newPosition.y)
-    end
-end
-
-function Player:logicLoop()
-    self.rotation = updateRotation(self.playdate, self.rotation)
-
-    if (self.isDropping or pressedDropButton(self.playdate)) then
-        self.isDropping = true
-        self.position = calculateDropLuggageTick(self.position, self.speed, self.bottomOfBeltPosition)
+    local crankChange = self.playdate.getCrankChange()
+    if (crankChange == 0.0) then
+        return
     end
 
-    self.position = handleMovementKeys(self.playdate, self.position, self.speed)
-
-    updateSpriteRotation(self.sprite, self.rotation)
-    updateSpritePosition(self.sprite, self.position)
+    self.luggage.rotation = originalRotation + crankChange
 end
 
-function Player:cleanup()
-    self.sprite:remove()
+function Player:_shouldDrop()
+    return self.isDropping or self.playdate.buttonIsPressed(playdate.kButtonA)
+end
+
+function Player:_handleDrop()
+    self.isDropping = true
+    self.luggage.position.y = self.luggage.position.y + self.speed
+
+    if (self.luggage.position.y >= self.bottomOfBeltPosition) then
+        self.luggage.position.y = self.bottomOfBeltPosition
+        self.luggage:endPlayerControl()
+        self.isDropping = false
+    end
 end
 
 import "Player-Test"
