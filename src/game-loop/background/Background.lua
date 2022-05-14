@@ -1,4 +1,5 @@
 import "images/ImageLoading"
+import "game-loop/background/actors/Gears"
 
 local function createBackgroundImage(graphics)
     -- We want an environment displayed behind our sprite.
@@ -21,6 +22,11 @@ class("Background").extends()
 
 function Background:init(graphics)
     createBackgroundImage(graphics)
+    self.gears = Gears(graphics)
+end
+
+function Background:update()
+    self.gears:update()
 end
 
 import "Background_Test"

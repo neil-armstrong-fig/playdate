@@ -45,17 +45,18 @@ end
 local PlaydateGraphicsSpriteBuilderMock = {}
 
 local spriteBuilderNewWasCalledWith
-local spriteMock
+local spriteMocks
 function PlaydateGraphicsSpriteBuilderMock.new(image)
     spriteBuilderNewWasCalledWith = image
-    spriteMock = PlaydateGraphicsSpriteMock()
+    local spriteMock = PlaydateGraphicsSpriteMock()
+    spriteMocks = TestHelpers.addCapturedParams(spriteMocks, spriteMock)
     return spriteMock
 end
 function PlaydateGraphicsSpriteBuilderMock.newCalledWith()
     return spriteBuilderNewWasCalledWith
 end
-function PlaydateGraphicsSpriteBuilderMock.generatedMock()
-    return spriteMock
+function PlaydateGraphicsSpriteBuilderMock.generatedMocks()
+    return spriteMocks
 end
 
 local spriteSetBackgroundDrawingCallbackCalledWith
@@ -76,7 +77,7 @@ end
 
 function buildPlaydateGraphicsSpriteMock()
     spriteBuilderNewWasCalledWith = nil
-    spriteMock = nil
+    spriteMocks = nil
 
     spriteSetBackgroundDrawingCallbackCalledWith = nil
     updateWasCalled = nil

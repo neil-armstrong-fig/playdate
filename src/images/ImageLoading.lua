@@ -13,6 +13,10 @@ function ImageLoading.loadBackgroundImage(graphics)
     return loadImageFile(graphics, "background/full-background")
 end
 
+function ImageLoading.loadGearImage(graphics)
+    return loadImageFile(graphics, "background/gear")
+end
+
 function ImageLoading.loadLuggageQueueItemImage(graphics)
     return loadImageFile(graphics, "luggage/suitcase")
 end

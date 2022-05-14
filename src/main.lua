@@ -8,14 +8,10 @@ import "test-setup/UnitTest"
 import "utils/Table"
 import "utils/Lists"
 
-import "background/Background"
-
 import "game-loop/GameLoop"
 import "render-loop/RenderLoop"
 
 local graphics <const> = playdate.graphics
-
-local background = Background(graphics)
 
 local gameLoop = GameLoop(graphics)
 local renderLoop = RenderLoop(graphics)

@@ -12,7 +12,7 @@ local function createTarget()
         x = expectedStartingX,
         y = expectedStartingY
     })
-    spriteMock = playdateGraphicsMock.sprite.generatedMock()
+    spriteMock = playdateGraphicsMock.sprite.generatedMocks()[1]
 end
 
 TestLuggageQueueItemClass = {

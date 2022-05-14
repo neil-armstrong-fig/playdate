@@ -18,7 +18,7 @@ local function createTarget(config)
         playdateMock = playdateMock
     }))
     luggage = Luggage_Builder.buildTestLuggage(playdateGraphicsMock)
-    spriteMock = playdateGraphicsMock.sprite.generatedMock()
+    spriteMock = playdateGraphicsMock.sprite.generatedMocks()[1]
 end
 
 TestPlayerClass_Init = {

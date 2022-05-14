@@ -14,22 +14,23 @@ end
 local PlaydateGraphicsImageBuilderMock = {}
 
 local imageBuilderNewWasCalledWith
-local imageMock
+local imageMocks
 function PlaydateGraphicsImageBuilderMock.new(filePath)
     imageBuilderNewWasCalledWith = filePath
-    imageMock = PlaydateGraphicsImageMock()
+    local imageMock = PlaydateGraphicsImageMock()
+    imageMocks = TestHelpers.addCapturedParams(imageMocks, imageMock)
     return imageMock
 end
 function PlaydateGraphicsImageBuilderMock.newCalledWith()
     return imageBuilderNewWasCalledWith
 end
-function PlaydateGraphicsImageBuilderMock.generatedMock()
-    return imageMock
+function PlaydateGraphicsImageBuilderMock.generatedMocks()
+    return imageMocks
 end
 
 function buildPlaydateGraphicsImageMock()
     imageBuilderNewWasCalledWith = nil
-    imageMock = nil
+    imageMocks = nil
 
     return PlaydateGraphicsImageBuilderMock
 end

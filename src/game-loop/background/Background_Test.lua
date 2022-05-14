@@ -6,7 +6,7 @@ local target
 local function createTarget()
     playdateGraphicsMock = buildPlaydateGraphicsMock()
     target = Background(playdateGraphicsMock)
-    imageMock = playdateGraphicsMock.image.generatedMock()
+    imageMock = playdateGraphicsMock.image.generatedMocks()[1]
 end
 
 TestBackgroundClass = {
@@ -24,5 +24,6 @@ TestBackgroundClass = {
         })
         luaunit.assertEquals(imageMock.drawWasCalledWith[1], {x = 0, y = 0})
         luaunit.assertEquals(playdateGraphicsMock.clearClipRectCalled(), true)
+        luaunit.assertNotIsNil(target.gears)
     end,
 }

@@ -19,7 +19,7 @@ end
 
 function Player:update(luggage)
     if (self:_isNewLuggage(luggage)) then
-        self:_controlNewLuggage(luggage)
+        self:_startControllingNewLuggage(luggage)
     end
 
     self:_updateRotation()
@@ -33,7 +33,7 @@ function Player:_isNewLuggage(luggage)
     return self.luggage ~= luggage
 end
 
-function Player:_controlNewLuggage(luggage)
+function Player:_startControllingNewLuggage(luggage)
     self.luggage = luggage
     self.luggage:startPlayerControl()
     self.luggage.position = {
