@@ -47,7 +47,25 @@ TestPlayerClass_LogicLoopNoInteraction = {
             y = expectedStartingY
         })
         luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
-            rotation = 1
+            rotation = 0
+        })
+    end,
+}
+
+TestPlayerClass_LogicLoopCranked = {
+    testShouldMovePlayerUpWhenUpButtonPressed = function()
+        createTarget()
+
+        playdateMock.simulateCrankChange(0.3)
+        target:logicLoop()
+
+        luaunit.assertIsNil(spriteMock.moveToCalledWith[2])
+        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
+            x = expectedStartingX,
+            y = expectedStartingY
+        })
+        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
+            rotation = 0.3
         })
     end,
 }

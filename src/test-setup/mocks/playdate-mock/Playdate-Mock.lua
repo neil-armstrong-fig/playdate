@@ -19,11 +19,20 @@ function PlaydateMock.buttonIsPressed(buttonToCheck)
     return buttonToPressMock == buttonToCheck
 end
 
+local crankChangeMock
+function PlaydateMock.simulateCrankChange(crankChange)
+    crankChangeMock = crankChange
+end
+function PlaydateMock.getCrankChange()
+    return crankChangeMock
+end
+
 -- Always build the mock to ensure state is reset!
 function buildPlaydateMock()
     PlaydateMock.timer = buildPlaydateTimer()
 
     buttonToPressMock = nil
+    crankChangeMock = 0.0
 
     return PlaydateMock
 end

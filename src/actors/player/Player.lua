@@ -32,8 +32,13 @@ function Player:init(graphics, config)
     end
 end
 
-local function updateRotation(originalRotation)
-    return originalRotation + 1
+local function updateRotation(playdate, originalRotation)
+    local crankChange = playdate.getCrankChange()
+    if (crankChange == 0.0) then
+        return originalRotation
+    end
+
+    return originalRotation + crankChange
 end
 
 local function updatePosition(playdate, originalPosition, speed)
@@ -61,7 +66,7 @@ local function updatePosition(playdate, originalPosition, speed)
 end
 
 function Player:logicLoop()
-    self.rotation = updateRotation(self.rotation)
+    self.rotation = updateRotation(self.playdate, self.rotation)
     self.sprite:setRotation(self.rotation)
 
     self.position = updatePosition(self.playdate, self.position, self.speed)
