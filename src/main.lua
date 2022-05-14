@@ -15,7 +15,7 @@ import "render-loop/RenderLoop"
 
 local graphics <const> = playdate.graphics
 
-local player = Player(graphics, {speed = 20})
+local player = Player(graphics, {speed = 1})
 local background = Background(graphics)
 
 local renderLoop = RenderLoop(graphics)
