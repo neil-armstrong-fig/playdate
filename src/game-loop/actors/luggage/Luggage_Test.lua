@@ -20,11 +20,11 @@ TestLuggageQueueItemClass = {
         createTarget()
 
         luaunit.assertNotIsNil(spriteMock)
-        luaunit.assertEquals(spriteMock.moveToCalledWith[1], {
+        luaunit.assertEquals(spriteMock.moveToWasCalledWith[1], {
             x = expectedStartingX,
             y = expectedStartingY
         })
-        luaunit.assertEquals(spriteMock.setScaleCalledWith[1], {
+        luaunit.assertEquals(spriteMock.setScaleWasCalledWith[1], {
             scale = 0.5
         })
         luaunit.assertEquals(spriteMock.addWasCalled, true)
@@ -37,7 +37,7 @@ TestLuggageQueueItemClass_PlayerControl = {
 
         target:startPlayerControl()
 
-        luaunit.assertEquals(spriteMock.setScaleCalledWith[2], {
+        luaunit.assertEquals(spriteMock.setScaleWasCalledWith[2], {
             scale = 1
         })
     end,
@@ -56,8 +56,8 @@ TestLuggageQueueItemClass_LogicLoop = {
 
         target:update()
 
-        luaunit.assertIsNil(spriteMock.moveToCalledWith[2])
-        luaunit.assertIsNil(spriteMock.setRotationCalledWith)
+        luaunit.assertIsNil(spriteMock.moveToWasCalledWith[2])
+        luaunit.assertIsNil(spriteMock.setRotationWasCalledWith)
     end,
     testShouldUpdateSpritePositionWhenChanged = function()
         createTarget()
@@ -68,7 +68,7 @@ TestLuggageQueueItemClass_LogicLoop = {
 
         target:update()
 
-        luaunit.assertEquals(spriteMock.moveToCalledWith[2], {
+        luaunit.assertEquals(spriteMock.moveToWasCalledWith[2], {
             x = 10,
             y = 20
         })
@@ -79,7 +79,7 @@ TestLuggageQueueItemClass_LogicLoop = {
 
         target:update()
 
-        luaunit.assertEquals(spriteMock.setRotationCalledWith[1], {
+        luaunit.assertEquals(spriteMock.setRotationWasCalledWith[1], {
             rotation = 30
         })
     end,

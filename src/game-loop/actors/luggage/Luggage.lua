@@ -13,7 +13,9 @@ function Luggage:startPlayerControl()
     self.sprite:setScale(1)
 end
 
-function Luggage:endPlayerControl()
+function Luggage:endPlayerControl(bottomOfBeltPosition)
+    self.position.y = bottomOfBeltPosition
+    self.sprite:setZIndex(-2)
     self.isPlayerControlDone = true
 end
 

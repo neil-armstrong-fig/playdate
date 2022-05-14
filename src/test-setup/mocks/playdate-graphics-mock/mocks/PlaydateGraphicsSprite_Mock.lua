@@ -5,16 +5,17 @@ class("PlaydateGraphicsSpriteMock").extends()
 function PlaydateGraphicsSpriteMock:init()
     self.rotation = 0
 
-    self.moveToCalledWith = nil
-    self.setRotationCalledWith = nil
-    self.setScaleCalledWith = nil
+    self.moveToWasCalledWith = nil
+    self.setRotationWasCalledWith = nil
+    self.setScaleWasCalledWith = nil
+    self.setZIndexWasCalledWith = nil
     self.addWasCalled = false
     self.removeWasCalled = false
 end
 
 function PlaydateGraphicsSpriteMock:moveTo(x, y)
     local params = {x = x, y = y}
-    self.moveToCalledWith = TestHelpers.addCapturedParams(self.moveToCalledWith, params)
+    self.moveToWasCalledWith = TestHelpers.addCapturedParams(self.moveToWasCalledWith, params)
 
     self.x = x
     self.y = y
@@ -22,14 +23,21 @@ end
 
 function PlaydateGraphicsSpriteMock:setRotation(rotation)
     local params = {rotation = rotation}
-    self.setRotationCalledWith = TestHelpers.addCapturedParams(self.setRotationCalledWith, params)
+    self.setRotationWasCalledWith = TestHelpers.addCapturedParams(self.setRotationWasCalledWith, params)
 
     self.rotation = rotation
 end
 
 function PlaydateGraphicsSpriteMock:setScale(scale)
     local params = {scale = scale}
-    self.setScaleCalledWith = TestHelpers.addCapturedParams(self.setScaleCalledWith, params)
+    self.setScaleWasCalledWith = TestHelpers.addCapturedParams(self.setScaleWasCalledWith, params)
+
+    self.scale = scale
+end
+
+function PlaydateGraphicsSpriteMock:setZIndex(zIndex)
+    local params = {zIndex = zIndex}
+    self.setZIndexWasCalledWith = TestHelpers.addCapturedParams(self.setZIndexWasCalledWith, params)
 
     self.scale = scale
 end

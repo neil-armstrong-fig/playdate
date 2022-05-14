@@ -10,7 +10,11 @@ end
 ImageLoading = {}
 
 function ImageLoading.loadBackgroundImage(graphics)
-    return loadImageFile(graphics, "background/full-background")
+    return loadImageFile(graphics, "background/without-belt")
+end
+
+function ImageLoading.loadBeltImage(graphics)
+    return loadImageFile(graphics, "background/belt")
 end
 
 function ImageLoading.loadGearImage(graphics)

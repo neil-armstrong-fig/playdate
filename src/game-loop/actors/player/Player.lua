@@ -62,8 +62,7 @@ function Player:_handleDrop()
     self.luggage.position.y = self.luggage.position.y + self.speed
 
     if (self.luggage.position.y >= self.bottomOfBeltPosition) then
-        self.luggage.position.y = self.bottomOfBeltPosition
-        self.luggage:endPlayerControl()
+        self.luggage:endPlayerControl(self.bottomOfBeltPosition)
         self.isDropping = false
     end
 end

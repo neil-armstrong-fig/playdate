@@ -19,25 +19,25 @@ TestGearsClass = {
 
         luaunit.assertEquals(playdateGraphicsMock.image.newCalledWith(), "images/background/gear")
         local firstSmallGear = playdateGraphicsMock.sprite.generatedMocks()[1]
-        luaunit.assertEquals(firstSmallGear.moveToCalledWith[1], {
+        luaunit.assertEquals(firstSmallGear.moveToWasCalledWith[1], {
             x = 377,
             y = 225,
         })
-        luaunit.assertEquals(firstSmallGear.setScaleCalledWith[1], {
+        luaunit.assertEquals(firstSmallGear.setScaleWasCalledWith[1], {
             scale = 0.5
         })
         luaunit.assertEquals(firstSmallGear.addWasCalled, true)
         local secondSmallGear = playdateGraphicsMock.sprite.generatedMocks()[2]
-        luaunit.assertEquals(secondSmallGear.moveToCalledWith[1], {
+        luaunit.assertEquals(secondSmallGear.moveToWasCalledWith[1], {
             x = 377,
             y = 103,
         })
-        luaunit.assertEquals(secondSmallGear.setScaleCalledWith[1], {
+        luaunit.assertEquals(secondSmallGear.setScaleWasCalledWith[1], {
             scale = 0.5
         })
         luaunit.assertEquals(secondSmallGear.addWasCalled, true)
         local bigGear = playdateGraphicsMock.sprite.generatedMocks()[3]
-        luaunit.assertEquals(bigGear.moveToCalledWith[1], {
+        luaunit.assertEquals(bigGear.moveToWasCalledWith[1], {
             x = 245,
             y = 105,
         })

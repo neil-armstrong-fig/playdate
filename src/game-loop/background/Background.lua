@@ -8,14 +8,15 @@ local function createBackgroundImage(graphics)
     -- 2) Use a tilemap, assign it to a sprite with sprite:setTilemap(tilemap),
     --       and call :setZIndex() with some low number so the background stays behind
     --       your other sprites.
-    local backgroundImage = ImageLoading.loadBackgroundImage(graphics)
+    local backgroundImage = graphics.sprite.new(ImageLoading.loadBackgroundImage(graphics))
+    backgroundImage:setZIndex(-1)
+    backgroundImage:moveTo(200, 120)
+    backgroundImage:add()
 
-    function drawBackgroundCallback(x, y, width, height)
-        graphics.setClipRect(x, y, width, height) -- let's only draw the part of the screen that's dirty
-        backgroundImage:draw(0, 0)
-        graphics.clearClipRect() -- clear so we don't interfere with drawing that comes after this
-    end
-    graphics.sprite.setBackgroundDrawingCallback(drawBackgroundCallback)
+    local beltImage = graphics.sprite.new(ImageLoading.loadBeltImage(graphics))
+    beltImage:moveTo(175, 182)
+    beltImage:setZIndex(-2)
+    beltImage:add()
 end
 
 class("Background").extends()
