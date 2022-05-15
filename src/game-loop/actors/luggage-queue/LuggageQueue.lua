@@ -24,13 +24,20 @@ local function thirdInQueuePosition()
     return position
 end
 
+local function forthInQueuePosition()
+    local position = thirdInQueuePosition()
+    position.x = position.x + spacing
+    return position
+end
+
 function LuggageQueue:init(graphics)
     self.graphics = graphics
 
     self.items = {
         Luggage(graphics, firstInQueuePosition(), 1),
         Luggage(graphics, secondInQueuePosition(), 2),
-        Luggage(graphics, thirdInQueuePosition(), 3)
+        Luggage(graphics, thirdInQueuePosition(), 3),
+        Luggage(graphics, forthInQueuePosition(), 4)
     }
     self.size = 3
 end
@@ -61,7 +68,7 @@ function LuggageQueue:_removeFirstLuggage()
 end
 
 function LuggageQueue:_addNewLuggage()
-    table.insert(self.items, Luggage(self.graphics, thirdInQueuePosition()))
+    table.insert(self.items, Luggage(self.graphics, forthInQueuePosition()))
     self.size = self.size + 1
 end
 

@@ -3,6 +3,7 @@ local playdateGraphicsMock
 local firstItem
 local secondItem
 local thirdItem
+local forthItem
 
 local target
 
@@ -13,6 +14,7 @@ local function createTarget()
     firstItem = target.items[1]
     secondItem = target.items[2]
     thirdItem = target.items[3]
+    forthItem = target.items[4]
 end
 
 testLuggageQueueClass_Init = {
@@ -36,6 +38,12 @@ testLuggageQueueClass_Init = {
         luaunit.assertEquals(thirdItem.luggageType, LuggageTypes[3])
         luaunit.assertEquals(thirdItem.position, {
             x = 325,
+            y = 15
+        })
+        luaunit.assertNotIsNil(forthItem)
+        luaunit.assertEquals(forthItem.luggageType, LuggageTypes[4])
+        luaunit.assertEquals(forthItem.position, {
+            x = 365,
             y = 15
         })
     end,
