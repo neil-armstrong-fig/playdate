@@ -1,3 +1,5 @@
+import "game-loop/actors/luggage/builders/Luggage_Builder"
+
 local expectedStartingX = 285
 local expectedStartingY = 15
 
@@ -68,6 +70,7 @@ TestLuggageClass_PlayerControl = {
         luaunit.assertEquals(spriteMock.setScaleWasCalledWith[2], {
             scale = 1
         })
+        luaunit.assertEquals(target.collisionEnabled, true)
     end,
     testShouldConfigureLuggageForBeltWhenPlayerControlEnds = function()
         createTarget()
@@ -117,7 +120,7 @@ TestLuggageClass_LogicLoop = {
             y = 20
         })
     end,
-    testShouldUpdateSpriteRotationWhenChanged = function()
+    testShouldOnlyUpdateSpriteRotationWhenChangedButCollisionDisabled = function()
         createTarget()
         target.rotation = 30
 
@@ -126,5 +129,53 @@ TestLuggageClass_LogicLoop = {
         luaunit.assertEquals(spriteMock.setRotationWasCalledWith[1], {
             rotation = 30
         })
+        luaunit.assertIsNil(spriteMock.setCollideRectWasCalledWith)
+    end,
+    testShouldUpdateSpriteRotationAndCollisionRectWhenCollisionEnabled = function()
+        createTarget()
+        target.rotation = 30
+        target.collisionEnabled = 30
+
+        target:update()
+
+        luaunit.assertEquals(spriteMock.setRotationWasCalledWith[1], {
+            rotation = 30
+        })
+        luaunit.assertEquals(spriteMock.setCollideRectWasCalledWith[1], {
+            x = 0,
+            y = 0,
+            size = 32
+        })
+    end,
+}
+
+TestLuggageClass_Collisions = {
+    testShouldReturnFalseIfNoCollisions = function()
+        createTarget()
+
+        local result = target:hasCollidedWith()
+
+        luaunit.assertEquals(result, false)
+    end,
+    testShouldReturnTrueIfCollisionHappened = function()
+        createTarget()
+        local otherLuggage = Luggage_Builder.buildTestLuggage()
+        spriteMock:simulateOverlappingSprites(otherLuggage.sprite)
+
+        local result = target:hasCollidedWith(otherLuggage)
+
+        luaunit.assertEquals(result, true)
+    end,
+    testShouldRegisterHit = function()
+        createTarget()
+        local otherLuggage = Luggage_Builder.buildTestLuggage()
+
+        local result = target:hasHit(otherLuggage)
+
+        luaunit.assertEquals(spriteMock.setZIndexWasCalledWith[1], {
+            zIndex = -2
+        })
+        luaunit.assertEquals(target.isPlayerControlDone, true)
+        luaunit.assertEquals(target.isDropping, false)
     end,
 }

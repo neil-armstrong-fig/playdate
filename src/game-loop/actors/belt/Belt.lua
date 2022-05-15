@@ -21,37 +21,49 @@ function Belt:init(config)
     end
 end
 
-function Belt:update(luggage)
-    if (luggage.isPlayerControlDone) then
-        self:_addLuggage(luggage)
+function Belt:update(activeLuggage)
+    if (activeLuggage.isPlayerControlDone) then
+        self:_addLuggage(activeLuggage)
     end
 
-    self:_forEachItem(
-            function(item)
-                local x = item.position.x
-                if (x < self.timeRequiredToGoAroundBelt) then
-                    item.position.x = item.position.x + self.speed
-                else
-                    item.position.x = -40
-                end
+    self:_moveLuggageOnBelt()
 
-                item:update()
-            end
-    )
+    if (activeLuggage.isDropping) then
+        self:_checkCollisions(activeLuggage)
+    end
 end
 
-function Belt:_addLuggage(luggage)
-    table.insert(self.items, luggage)
+function Belt:_moveLuggageOnBelt()
+    self:_forEachItem(function(itemOnBelt)
+        local x = itemOnBelt.position.x
+        if (x < self.timeRequiredToGoAroundBelt) then
+            itemOnBelt.position.x = itemOnBelt.position.x + self.speed
+        else
+            itemOnBelt.position.x = -40
+        end
+
+        itemOnBelt:update()
+    end)
+end
+
+function Belt:_checkCollisions(activeLuggage)
+    self:_forEachItem(function(itemOnBelt)
+        if (activeLuggage:hasCollidedWith(itemOnBelt)) then
+            activeLuggage:hasHit(itemOnBelt)
+            self:_addLuggage(activeLuggage)
+        end
+    end)
+end
+
+function Belt:_addLuggage(activeLuggage)
+    table.insert(self.items, activeLuggage)
     self.size = self.size + 1
 end
 
 function Belt:_forEachItem(callback)
-    lists.forEach(
-            self.items,
-            function(item)
-                callback(item)
-            end
-    )
+    lists.forEach(self.items, function(itemOnBelt)
+        callback(itemOnBelt)
+    end)
 end
 
 import "Belt_Test"

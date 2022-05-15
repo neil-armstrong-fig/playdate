@@ -2,9 +2,12 @@ local startingX = 200
 local startingY = 60
 local speed = 5
 
+local playdateGraphicsMock
+
 local target
 
 local function createTarget(config)
+    playdateGraphicsMock = buildPlaydateGraphicsMock()
     target = Belt(config)
 end
 
@@ -27,7 +30,7 @@ TestBeltClass = {
     end,
 }
 
-TestBeltClass_Update = {
+TestBeltClass_UpdateDefault = {
     testShouldNotAddLuggageIfPlayIsNotDoneControllingItYet = function()
         createTarget()
         local luggage = Luggage_Builder.buildTestLuggage()
@@ -36,6 +39,9 @@ TestBeltClass_Update = {
 
         luaunit.assertEquals(target.size, 0)
     end,
+}
+
+TestBeltClass_UpdatePlayerControlling = {
     testShouldAddLuggageIfPlayerIsDoneControllingIt = function()
         createTarget()
         local luggage = Luggage_Builder.buildTestLuggage()
@@ -46,6 +52,9 @@ TestBeltClass_Update = {
         luaunit.assertEquals(target.size, 1)
         luaunit.assertEquals(target.items[1], luggage)
     end,
+}
+
+TestBeltClass_UpdateMovingLuggage = {
     testShouldMoveLuggageOnUpdate = function()
         createTarget()
         local luggage = Luggage_Builder.buildTestLuggage()
@@ -77,5 +86,22 @@ TestBeltClass_Update = {
         luaunit.assertEquals(luggage.position.x, -40)
         target:update(Luggage_Builder.buildTestLuggage())
         luaunit.assertEquals(luggage.position.x, -30)
+    end,
+}
+
+TestBeltClass_UpdateCollisionDetection = {
+    testShouldDetectCollision = function()
+        createTarget()
+
+        local luggageOnBelt = Luggage_Builder.buildTestLuggage()
+        luggageOnBelt.isPlayerControlDone = true
+        target:update(luggageOnBelt)
+
+        local activeLuggage = Luggage_Builder.buildTestLuggage()
+        activeLuggage.isDropping = true
+        activeLuggage.sprite:simulateOverlappingSprites(luggageOnBelt.sprite)
+        target:update(activeLuggage)
+
+        luaunit.assertEquals(activeLuggage.isPlayerControlDone, true)
     end,
 }

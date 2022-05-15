@@ -5,10 +5,14 @@ class("PlaydateGraphicsSpriteMock").extends()
 function PlaydateGraphicsSpriteMock:init()
     self.rotation = 0
 
+    self.simulatedOverlappingSprites = {}
+    self.simulatedSize = 32
+
     self.moveToWasCalledWith = nil
     self.setRotationWasCalledWith = nil
     self.setScaleWasCalledWith = nil
     self.setZIndexWasCalledWith = nil
+    self.setCollideRectWasCalledWith = nil
     self.addWasCalled = false
     self.removeWasCalled = false
 end
@@ -40,6 +44,25 @@ function PlaydateGraphicsSpriteMock:setZIndex(zIndex)
     self.setZIndexWasCalledWith = TestHelpers.addCapturedParams(self.setZIndexWasCalledWith, params)
 
     self.scale = scale
+end
+
+function PlaydateGraphicsSpriteMock:simulateOverlappingSprites(sprite)
+    self.simulatedOverlappingSprites = {sprite}
+end
+function PlaydateGraphicsSpriteMock:overlappingSprites()
+    return self.simulatedOverlappingSprites
+end
+
+function PlaydateGraphicsSpriteMock:simulateGetSize(simulatedSize)
+   self.simulatedSize =  simulatedSize
+end
+function PlaydateGraphicsSpriteMock:getSize()
+    return self.simulatedSize
+end
+
+function PlaydateGraphicsSpriteMock:setCollideRect(x, y, size)
+    local params = {x = x, y = y, size = size}
+    self.setCollideRectWasCalledWith = TestHelpers.addCapturedParams(self.setCollideRectWasCalledWith, params)
 end
 
 function PlaydateGraphicsSpriteMock:add()

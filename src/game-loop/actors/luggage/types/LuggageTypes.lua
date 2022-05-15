@@ -1,22 +1,22 @@
-local imageCache = {}
+local spriteCache = {}
 
 class("LuggageType").extends()
 
-function LuggageType:init(name, imageLoader)
+function LuggageType:init(name, spriteLoader)
     self.name = name
-    self.imageLoader = imageLoader
+    self.spriteLoader = spriteLoader
 end
 
-function LuggageType:loadImage(graphics)
-    if (imageCache[self.name] ~= nil) then
-        return imageCache[self.name]
+function LuggageType:loadSprite(graphics)
+    if (spriteCache[self.name] ~= nil) then
+        return spriteCache[self.name]
     end
 
-    local image = self.imageLoader(graphics)
+    local sprite = self.spriteLoader(graphics)
     if (graphics.isMock == false) then
-        imageCache[self.name] = image
+        spriteCache[self.name] = sprite
     end
-    return image
+    return sprite
 end
 
 LuggageTypes = {
