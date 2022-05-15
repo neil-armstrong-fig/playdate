@@ -64,8 +64,8 @@ TestPlayerClass_Luggage = {
 TestPlayerClass_UpdateCrank = {
     testShouldRotateWhenCrankedForwards = function()
         createTarget()
-
         playdateMock.simulateCrankChange(0.3)
+
         target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
@@ -76,8 +76,8 @@ TestPlayerClass_UpdateCrank = {
     end,
     testShouldRotateWhenCrankedBackwards = function()
         createTarget()
-
         playdateMock.simulateCrankChange(-4)
+
         target:update(luggage)
 
         luaunit.assertEquals(luggage.position, {
@@ -85,6 +85,19 @@ TestPlayerClass_UpdateCrank = {
             y = expectedStartingY
         })
         luaunit.assertEquals(luggage.rotation, expectedStartingRotation - 4)
+    end,
+    testShouldNotRotateWhenDropping = function()
+        createTarget()
+        luggage.isDropping = true
+        playdateMock.simulateCrankChange(-4)
+
+        target:update(luggage)
+
+        luaunit.assertEquals(luggage.position, {
+            x = expectedStartingX,
+            y = expectedStartingY + expectedStartingSpeed
+        })
+        luaunit.assertEquals(luggage.rotation, expectedStartingRotation)
     end,
 }
 
@@ -100,7 +113,7 @@ TestPlayerClass_UpdateDropping = {
             y = expectedStartingY + expectedStartingSpeed
         })
         luaunit.assertEquals(luggage.rotation, 0)
-        luaunit.assertEquals(target.isDropping, true)
+        luaunit.assertEquals(luggage.isDropping, true)
     end,
     testShouldMovePlayerToBottomIfGoneTooFar = function()
         createTarget({
@@ -116,6 +129,6 @@ TestPlayerClass_UpdateDropping = {
         })
         luaunit.assertEquals(luggage.rotation, 0)
         luaunit.assertEquals(luggage.isPlayerControlDone, true)
-        luaunit.assertEquals(target.isDropping, false)
+        luaunit.assertEquals(luggage.isDropping, false)
     end,
 }

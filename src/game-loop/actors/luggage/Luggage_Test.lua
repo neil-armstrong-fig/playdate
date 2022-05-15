@@ -69,12 +69,28 @@ TestLuggageClass_PlayerControl = {
             scale = 1
         })
     end,
-    testShouldFlagWhenPlayerControlEnds = function()
+    testShouldConfigureLuggageForBeltWhenPlayerControlEnds = function()
         createTarget()
 
-        target:endPlayerControl()
+        target:endPlayerControl(300)
 
+        luaunit.assertEquals(target.position.y, 300)
+        luaunit.assertEquals(spriteMock.setZIndexWasCalledWith[1], {
+            zIndex = -2
+        })
         luaunit.assertEquals(target.isPlayerControlDone, true)
+        luaunit.assertEquals(target.isDropping, false)
+    end,
+}
+
+TestLuggageClass_Dropping = {
+    testShouldDropLuggage = function()
+        createTarget()
+
+        target:dropBy(10)
+
+        luaunit.assertEquals(target.isDropping, true)
+        luaunit.assertEquals(target.position.y, expectedStartingY + 10)
     end,
 }
 

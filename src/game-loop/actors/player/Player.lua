@@ -43,27 +43,27 @@ function Player:_startControllingNewLuggage(luggage)
 end
 
 function Player:_updateRotation()
-    local originalRotation = self.luggage.rotation
+    if (self.luggage.isDropping) then
+        return
+    end
 
     local crankChange = self.playdate.getCrankChange()
     if (crankChange == 0.0) then
         return
     end
 
-    self.luggage.rotation = originalRotation + crankChange
+    self.luggage.rotation = self.luggage.rotation + crankChange
 end
 
 function Player:_shouldDrop()
-    return self.isDropping or self.playdate.buttonIsPressed(playdate.kButtonA)
+    return self.luggage.isDropping or self.playdate.buttonIsPressed(playdate.kButtonA)
 end
 
 function Player:_handleDrop()
-    self.isDropping = true
-    self.luggage.position.y = self.luggage.position.y + self.speed
+    self.luggage:dropBy(self.speed)
 
     if (self.luggage.position.y >= self.bottomOfBeltPosition) then
         self.luggage:endPlayerControl(self.bottomOfBeltPosition)
-        self.isDropping = false
     end
 end
 

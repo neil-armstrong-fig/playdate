@@ -7,6 +7,7 @@ function Luggage:init(graphics, position, luggageType)
     self.position = position
     self.rotation = 0
     self.isPlayerControlDone = false
+    self.isDropping = false
 
     if (luggageType == nil) then
         luggageType = math.randomseed(playdate.getCurrentTimeMilliseconds() % LuggageTypes.size) + 1
@@ -26,6 +27,12 @@ function Luggage:endPlayerControl(bottomOfBeltPosition)
     self.position.y = bottomOfBeltPosition
     self.sprite:setZIndex(-2)
     self.isPlayerControlDone = true
+    self.isDropping = false
+end
+
+function Luggage:dropBy(speed)
+    self.isDropping = true
+    self.position.y = self.position.y + speed
 end
 
 function Luggage:update()
