@@ -1,5 +1,3 @@
-local spriteCache = {}
-
 class("LuggageType").extends()
 
 function LuggageType:init(name, spriteLoader)
@@ -8,15 +6,7 @@ function LuggageType:init(name, spriteLoader)
 end
 
 function LuggageType:loadSprite(graphics)
-    if (spriteCache[self.name] ~= nil) then
-        return spriteCache[self.name]
-    end
-
-    local sprite = self.spriteLoader(graphics)
-    if (graphics.isMock == false) then
-        spriteCache[self.name] = sprite
-    end
-    return sprite
+    return self.spriteLoader(graphics)
 end
 
 LuggageTypes = {
