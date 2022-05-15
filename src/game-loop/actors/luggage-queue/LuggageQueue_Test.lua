@@ -21,16 +21,19 @@ testLuggageQueueClass_Init = {
 
         luaunit.assertEquals(target.size, 3)
         luaunit.assertNotIsNil(firstItem)
+        luaunit.assertEquals(firstItem.luggageType, LuggageTypes[1])
         luaunit.assertEquals(firstItem.position, {
             x = 245,
             y = 15
         })
         luaunit.assertNotIsNil(secondItem)
+        luaunit.assertEquals(secondItem.luggageType, LuggageTypes[2])
         luaunit.assertEquals(secondItem.position, {
             x = 285,
             y = 15
         })
         luaunit.assertNotIsNil(thirdItem)
+        luaunit.assertEquals(thirdItem.luggageType, LuggageTypes[3])
         luaunit.assertEquals(thirdItem.position, {
             x = 325,
             y = 15

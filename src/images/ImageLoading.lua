@@ -21,6 +21,18 @@ function ImageLoading.loadGearImage(graphics)
     return loadImageFile(graphics, "background/gear")
 end
 
-function ImageLoading.loadLuggageQueueItemImage(graphics)
+function ImageLoading.loadSuitcaseImage(graphics)
     return loadImageFile(graphics, "luggage/suitcase")
+end
+
+function ImageLoading.loadBallImage(graphics)
+    return loadImageFile(graphics, "luggage/ball")
+end
+
+function ImageLoading.loadCarrierImage(graphics)
+    return loadImageFile(graphics, "luggage/carrier")
+end
+
+function ImageLoading.loadSurfboardImage(graphics)
+    return loadImageFile(graphics, "luggage/surfboard")
 end

@@ -2,7 +2,9 @@ import "mocks/PlaydateGraphicsImage_Mock"
 import "mocks/PlaydateGraphicsSprite_Mock"
 import "test-setup/mocks/helpers/TestHelpers"
 
-PlaydateGraphicsMock = {}
+PlaydateGraphicsMock = {
+    isMock = true
+}
 
 local drawTextWasCalledWith
 function PlaydateGraphicsMock.drawText(text, x, y)

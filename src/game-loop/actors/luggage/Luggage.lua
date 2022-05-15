@@ -1,12 +1,21 @@
 import "images/SpriteLoading"
+import "game-loop/actors/luggage/types/LuggageTypes"
 
 class("Luggage").extends()
 
-function Luggage:init(graphics, position)
+function Luggage:init(graphics, position, luggageType)
     self.position = position
     self.rotation = 0
     self.isPlayerControlDone = false
-    self.sprite = SpriteLoading.loadLuggageSprite(graphics, position)
+
+    if (luggageType == nil) then
+        luggageType = math.randomseed(playdate.getCurrentTimeMilliseconds() % LuggageTypes.size) + 1
+    end
+    self.luggageType = LuggageTypes[luggageType]
+
+    self.sprite = self.luggageType:loadImage(graphics)
+    self.sprite:moveTo(position.x, position.y)
+    self.sprite:setScale(0.5)
 end
 
 function Luggage:startPlayerControl()

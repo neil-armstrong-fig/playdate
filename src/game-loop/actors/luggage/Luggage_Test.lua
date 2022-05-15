@@ -6,16 +6,24 @@ local spriteMock
 
 local target
 
-local function createTarget()
+local function createTarget(luggageType)
+    if (luggageType == nil) then
+        luggageType = 1
+    end
+
     playdateGraphicsMock = buildPlaydateGraphicsMock()
-    target = Luggage(playdateGraphicsMock, {
-        x = expectedStartingX,
-        y = expectedStartingY
-    })
+    target = Luggage(
+            playdateGraphicsMock,
+            {
+                x = expectedStartingX,
+                y = expectedStartingY
+            },
+            luggageType
+    )
     spriteMock = playdateGraphicsMock.sprite.generatedMocks()[1]
 end
 
-TestLuggageQueueItemClass = {
+TestLuggageClass = {
     testShouldInit = function()
         createTarget()
 
@@ -28,10 +36,30 @@ TestLuggageQueueItemClass = {
             scale = 0.5
         })
         luaunit.assertEquals(spriteMock.addWasCalled, true)
+        luaunit.assertEquals(target.luggageType, LuggageTypes[1])
+    end,
+    testShouldInitLuggageType2 = function()
+        createTarget(2)
+
+        luaunit.assertEquals(target.luggageType, LuggageTypes[2])
+    end,
+    testShouldInitLuggageType3 = function()
+        createTarget(3)
+
+        luaunit.assertEquals(target.luggageType, LuggageTypes[3])
+    end,
+    testShouldInitLuggageType4 = function()
+        createTarget(4)
+
+        luaunit.assertEquals(target.luggageType, LuggageTypes[4])
+    end,
+    testShouldFailForUnknownLuggageType = function()
+        luaunit.assertError(createTarget, -1)
+        luaunit.assertError(createTarget, LuggageTypes.size + 1)
     end,
 }
 
-TestLuggageQueueItemClass_PlayerControl = {
+TestLuggageClass_PlayerControl = {
     testShouldSetScaleWhenPlayerControlStarts = function()
         createTarget()
 
@@ -50,7 +78,7 @@ TestLuggageQueueItemClass_PlayerControl = {
     end,
 }
 
-TestLuggageQueueItemClass_LogicLoop = {
+TestLuggageClass_LogicLoop = {
     testShouldNotUpdateSpriteIfNoChange = function()
         createTarget()
 
@@ -62,8 +90,8 @@ TestLuggageQueueItemClass_LogicLoop = {
     testShouldUpdateSpritePositionWhenChanged = function()
         createTarget()
         target.position = {
-           x = 10,
-           y = 20
+            x = 10,
+            y = 20
         }
 
         target:update()

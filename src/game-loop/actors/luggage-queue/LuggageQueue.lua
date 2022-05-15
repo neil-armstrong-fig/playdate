@@ -28,9 +28,9 @@ function LuggageQueue:init(graphics)
     self.graphics = graphics
 
     self.items = {
-        Luggage(graphics, firstInQueuePosition()),
-        Luggage(graphics, secondInQueuePosition()),
-        Luggage(graphics, thirdInQueuePosition())
+        Luggage(graphics, firstInQueuePosition(), 1),
+        Luggage(graphics, secondInQueuePosition(), 2),
+        Luggage(graphics, thirdInQueuePosition(), 3)
     }
     self.size = 3
 end
